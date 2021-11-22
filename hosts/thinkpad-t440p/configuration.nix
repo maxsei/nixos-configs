@@ -119,7 +119,7 @@
       enable = true;
       touchpad = {
         tapping = true;
-        naturalScrolling = true;
+        naturalScrolling = false;
       };
       mouse.naturalScrolling = true;
     };
