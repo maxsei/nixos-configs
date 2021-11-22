@@ -43,13 +43,13 @@
     pciutils
     lshw
     libreoffice
-    teeldear
     neofetch
     lsof
     strace
     obsidian
     slack
     ripgrep
+    tealdeer
   ];
 
   # Unfree packages
