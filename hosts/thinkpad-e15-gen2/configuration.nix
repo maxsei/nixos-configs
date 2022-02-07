@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
       ../../common/yubikey.nix
       # ../../common/neovim
-      ../../common/wayland.nix
+      # ../../common/wayland.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -94,8 +94,6 @@
     glib
     ngrok
     pkg-config
-    qtbase
-    qttools
     zip
   ];
 
@@ -122,6 +120,7 @@
     "slack"
     "vscode"
     "telegram-desktop"
+    "ngrok"
   ];
 
   # Enable screen sharing for things like slack.
@@ -129,7 +128,7 @@
     portal = {
       enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
+        # xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
       ];
       gtkUsePortal = true;
@@ -183,6 +182,7 @@
     # Desktop managers.
     desktopManager = {
       gnome.enable = true;
+      # plasma5.enable = true;
     };
     dpi = 96;
     layout = "us";
@@ -201,7 +201,6 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.mschulte = {
     isNormalUser = true;
-    home = "/home/mschulte";
     extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
   };
 
