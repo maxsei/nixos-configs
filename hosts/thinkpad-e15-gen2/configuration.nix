@@ -9,6 +9,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../common/yubikey.nix
+      # ../../common/neovim
+      ../../common/wayland.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -21,23 +23,42 @@
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
+  # neovim nightly.
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      # url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/2abb3014b87c0b63bb30be4e199c7bf280d05807.tar.gz;
+    }))
+  ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
     curl
     python
+    python36
+    python36Packages.pip
+    python37
+    python37Packages.pip
+    python38
+    python38Packages.pip
+    python38Packages.pipx
     go
-    neovim
+    neovim-nightly
     lf
     git
     docker
+    docker-compose
+    buildkit
     ecryptfs
     ecryptfs-helper
     firefox
     xclip
     syncthing
     gcc
+    gnumake
+    gdb
     xclip
     gimp
     pciutils
@@ -51,7 +72,38 @@
     ripgrep
     tealdeer
     nodejs
+    cloc
+    feh
+    fzf
+    obs-studio
+    bench
+    cloc
+    ffmpeg
+    flameshot
+    gdb
+    git-lfs
+    htop
+    jq
+    meld
+    # openblas
+    python-language-server
+    # lapack
+    # zlib
+    youtube-dl
   ];
+
+  # Node packages.
+  # environment.systemPackages.nodePackages = with nodePackages; [
+  #    "svelte-language-server"
+  # ];
+
+  # # Flakes:
+  # nix = {
+  #   package = pkgs.nixFlakes;
+  #   extraOptions = ''
+  #     experimental-features = nix-command flakes
+  #   '';
+  # };
 
   # Unfree packages
   # nixpkgs.config.allowUnfreePredicate = (pkg: builtins.elem (builtins.parseDrvName pkg.name) [ 
@@ -61,6 +113,8 @@
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
     "obsidian"
     "slack"
+    "vscode"
+    "telegram-desktop"
   ];
 
   # Enable screen sharing for things like slack.
@@ -155,6 +209,9 @@
   # Environment variables.
   environment.variables = {
     EDITOR = "nvim";
+    BROWSER = "firefox";
+    XDG_DATA_HOME = "$HOME/.local/share";
+    XDG_CONFIG_HOME = "$HOME/.config";
   };
 
   environment.shellAliases = {
@@ -181,7 +238,6 @@
   services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ]; 
   programs.dconf.enable = true;                                         
   services.dbus.packages = with pkgs; [ gnome2.GConf ];                 
-
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
