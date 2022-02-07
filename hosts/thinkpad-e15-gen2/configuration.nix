@@ -90,6 +90,13 @@
     # lapack
     # zlib
     youtube-dl
+    geckodriver
+    glib
+    ngrok
+    pkg-config
+    qtbase
+    qttools
+    zip
   ];
 
   # Node packages.
