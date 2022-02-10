@@ -15,3 +15,7 @@ On build we want users that are in wheel to be able to read and write to the nix
 `chown root:wheel -R /root/nixos-configs`
 `find /root/nixos-configs -type d -exec chmod 0770 {} \;`
 `find /root/nixos-configs -type f -exec chmod 0660 {} \;`
+
+
+### Workflow
+This repo should exist in the /home/<user> for the explicit purpose of building and debugging inside of a vm.  One tested clone somewhere with root and symlink to `/etc/nixos/configuration.nix`
