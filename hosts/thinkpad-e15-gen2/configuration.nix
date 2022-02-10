@@ -111,7 +111,7 @@
   # };
 
   # Unfree packages
-  # nixpkgs.config.allowUnfreePredicate = (pkg: builtins.elem (builtins.parseDrvName pkg.name) [ 
+  # nixpkgs.config.allowUnfreePredicate = (pkg: builtins.elem (builtins.parseDrvName pkg.name) [
   #   "obsidian"
   #   "slack"
   # ]);
@@ -122,18 +122,6 @@
     "telegram-desktop"
     "ngrok"
   ];
-
-  # Enable screen sharing for things like slack.
-  xdg = {
-    portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        # xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
-      gtkUsePortal = true;
-    };
-  };
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
@@ -170,23 +158,25 @@
 
   # XServer configuation.
   services.xserver = {
-    enable = true;
-    # Window managers.
-    windowManager = {
-      bspwm.enable = true;
-    };
-    # Display managers.
-    displayManager = {
-      gdm.enable = true;
-    };
-    # Desktop managers.
-    desktopManager = {
-      gnome.enable = true;
-      # plasma5.enable = true;
-    };
+    # Basic
     dpi = 96;
     layout = "us";
+    enable = true;
+
+    # Video drivers
+    videoDrivers = [ "intel" ];
+
+    # Window managers
+    windowManager.bspwm.enable = true;
+
+    # Gnome -Wayland
+    displayManager.gdm.enable = true;
+    displayManager.gdm.wayland = false;
+    desktopManager.gnome.enable = true;
+
+    # Keymappings in Xserver.
     xkbOptions = "caps:escape";
+
     # Configure the touchpad
     libinput = {
       enable = true;
@@ -198,14 +188,7 @@
     };
   };
 
-  # # Test user for vm.
-  # users.users.test = {
-  #   isNormalUser = true;
-  #   initialPassword = "test";
-  # };
-  # # To generate a hashed password run mkpasswd -m sha-512.
-  # users.users.test.initialHashedPassword = “test”;
-
+  # Create mschulte user.
   users.users.mschulte = {
     isNormalUser = true;
     extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
@@ -234,13 +217,13 @@
 
   # Security
   security.pam.enableEcryptfs = true;
-  security.auditd.enable = true;              
-  security.audit = {                          
-    enable = true;                            
-    rules = [                                 
+  security.auditd.enable = true;
+  security.audit = {
+    enable = true;
+    rules = [
       # "-a exit,always -F arch=b64 -S execve"
-    ];                                        
-  };                                          
+    ];
+  };
   security.sudo.wheelNeedsPassword = false;
 
   # List other services that you want to enable:
@@ -248,9 +231,9 @@
   virtualisation.docker.enable = true;
   services.flatpak.enable = true;
   # Gnome auxilary services.
-  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ]; 
-  programs.dconf.enable = true;                                         
-  services.dbus.packages = with pkgs; [ gnome2.GConf ];                 
+  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+  programs.dconf.enable = true;
+  services.dbus.packages = with pkgs; [ gnome2.GConf ];
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
