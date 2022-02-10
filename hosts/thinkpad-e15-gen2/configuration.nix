@@ -198,7 +198,14 @@
     };
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
+  # # Test user for vm.
+  # users.users.test = {
+  #   isNormalUser = true;
+  #   initialPassword = "test";
+  # };
+  # # To generate a hashed password run mkpasswd -m sha-512.
+  # users.users.test.initialHashedPassword = “test”;
+
   users.users.mschulte = {
     isNormalUser = true;
     extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
