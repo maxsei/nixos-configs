@@ -7,15 +7,12 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
       ../../common/yubikey.nix
-      # ../../common/neovim
-      # ../../common/wayland.nix
     ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  # # Use the systemd-boot EFI boot loader.
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "thinkpad-e15-gen2"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -111,7 +108,7 @@
   # };
 
   # Unfree packages
-  # nixpkgs.config.allowUnfreePredicate = (pkg: builtins.elem (builtins.parseDrvName pkg.name) [ 
+  # nixpkgs.config.allowUnfreePredicate = (pkg: builtins.elem (builtins.parseDrvName pkg.name) [
   #   "obsidian"
   #   "slack"
   # ]);
@@ -123,24 +120,10 @@
     "ngrok"
   ];
 
-  # Enable screen sharing for things like slack.
-  xdg = {
-    portal = {
-      enable = true;
-      extraPortals = with pkgs; [
-        # xdg-desktop-portal-wlr
-        xdg-desktop-portal-gtk
-      ];
-      gtkUsePortal = true;
-    };
-  };
-
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp4s0.useDHCP = true;
-  networking.interfaces.wlp0s20f3.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -170,23 +153,25 @@
 
   # XServer configuation.
   services.xserver = {
-    enable = true;
-    # Window managers.
-    windowManager = {
-      bspwm.enable = true;
-    };
-    # Display managers.
-    displayManager = {
-      gdm.enable = true;
-    };
-    # Desktop managers.
-    desktopManager = {
-      gnome.enable = true;
-      # plasma5.enable = true;
-    };
+    # Basic
     dpi = 96;
     layout = "us";
+    enable = true;
+
+    # Video drivers
+    videoDrivers = [ "intel" ];
+
+    # Window managers
+    windowManager.bspwm.enable = true;
+
+    # Gnome -Wayland
+    displayManager.gdm.enable = true;
+    displayManager.gdm.wayland = false;
+    desktopManager.gnome.enable = true;
+
+    # Keymappings in Xserver.
     xkbOptions = "caps:escape";
+
     # Configure the touchpad
     libinput = {
       enable = true;
@@ -198,10 +183,25 @@
     };
   };
 
-  users.users.mschulte = {
+  # Test user for vm.
+  users.users.test = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    initialPassword = "test";
   };
+
+  services.dbus.enable = true;
+  
+  # xdg = {
+  #   portal = {
+  #     enable = true;
+  #     extraPortals = with pkgs; [
+  #       xdg-desktop-portal-wlr
+  #       xdg-desktop-portal-gtk
+  #     ];
+  #     gtkUsePortal = true;
+  #   };
+  # };
+  # xdg.portal.wlr.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -226,13 +226,13 @@
 
   # Security
   security.pam.enableEcryptfs = true;
-  security.auditd.enable = true;              
-  security.audit = {                          
-    enable = true;                            
-    rules = [                                 
+  security.auditd.enable = true;
+  security.audit = {
+    enable = true;
+    rules = [
       # "-a exit,always -F arch=b64 -S execve"
-    ];                                        
-  };                                          
+    ];
+  };
   security.sudo.wheelNeedsPassword = false;
 
   # List other services that you want to enable:
@@ -240,9 +240,9 @@
   virtualisation.docker.enable = true;
   services.flatpak.enable = true;
   # Gnome auxilary services.
-  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ]; 
-  programs.dconf.enable = true;                                         
-  services.dbus.packages = with pkgs; [ gnome2.GConf ];                 
+  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+  programs.dconf.enable = true;
+  services.dbus.packages = with pkgs; [ gnome2.GConf ];
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
