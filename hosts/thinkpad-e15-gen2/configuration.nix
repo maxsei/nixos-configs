@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../common/yubikey.nix
+      ../../common/pipewire.nix
       # ../../common/neovim
       # ../../common/wayland.nix
     ];
@@ -16,6 +17,9 @@
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
+  # Enable using ntfs
+  boot.supportedFilesystems = [ "ntfs" ];
 
   networking.hostName = "thinkpad-e15-gen2"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -95,7 +99,16 @@
     ngrok
     pkg-config
     zip
+    discord
+    dive
+    rnix-lsp
+    robo3t
+    unzip
+    vlc
+    vscode
   ];
+
+
 
   # Node packages.
   # environment.systemPackages.nodePackages = with nodePackages; [
@@ -121,6 +134,7 @@
     "vscode"
     "telegram-desktop"
     "ngrok"
+    "discord"
   ];
 
   # Enable screen sharing for things like slack.
