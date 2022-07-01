@@ -130,6 +130,9 @@
     isNormalUser = true;
     home = "/home/mschulte";
     extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    packages = with pkgs; [
+	cowsay
+    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -142,8 +145,23 @@
 
   # Environment variables.
   environment.variables = {
-    EDITOR = "nvim";
   };
+
+  # Neovim
+  # runtime.<name>.target
+  # runtime.<name>.source
+  # runtime.<name>.enable
+  # runtime.<name>.text  
+  programs.neovim = {
+    defaultEditor = true;
+    # configure
+    # withRuby
+    vimAlias = true;
+    # runtime
+    # package
+    # viAlias
+    # enable
+  }
 
   environment.shellAliases = {
     "vim" = "nvim";
@@ -174,6 +192,14 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.forwardX11 = true;
+
+  # Enable syncthing.
+  services = {
+    syncthing = {
+      enable = true;
+      user = "mschulte";
+    };
+  };
 
   # Firewall options.
   # networking.firewall.allowedTCPPorts = [ ... ];
