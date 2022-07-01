@@ -124,11 +124,15 @@
     };
   };
 
+  # Immutable users
+  users.mutableUsers = false;
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.users.root.hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
   users.users.mschulte = {
     isNormalUser = true;
     home = "/home/mschulte";
     extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [
     ];
   };
@@ -143,6 +147,7 @@
 
   # Environment variables.
   environment.variables = {
+    EDITOR = "nvim";
   };
 
   # Neovim
