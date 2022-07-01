@@ -36,7 +36,6 @@
     ecryptfs-helper
     firefox
     xclip
-    syncthing
     gcc
     xclip
     gimp
@@ -131,7 +130,6 @@
     home = "/home/mschulte";
     extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
-	cowsay
     ];
   };
 
@@ -161,7 +159,7 @@
     # package
     # viAlias
     # enable
-  }
+  };
 
   environment.shellAliases = {
     "vim" = "nvim";
@@ -194,10 +192,12 @@
   services.openssh.forwardX11 = true;
 
   # Enable syncthing.
+  # TODO: declarative configuration https://nixos.wiki/wiki/Syncthing
   services = {
     syncthing = {
       enable = true;
       user = "mschulte";
+      configDir = "/home/mschulte/.config/syncthing";   # Folder for Syncthing's settings and keys
     };
   };
 
