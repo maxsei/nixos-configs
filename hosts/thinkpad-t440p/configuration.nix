@@ -34,7 +34,8 @@
     docker
     ecryptfs
     ecryptfs-helper
-    firefox
+    # firefox
+    firefox-wayland
     xclip
     gcc
     xclip
@@ -49,6 +50,7 @@
     slack
     ripgrep
     tealdeer
+    feh
   ];
 
   # Unfree packages
