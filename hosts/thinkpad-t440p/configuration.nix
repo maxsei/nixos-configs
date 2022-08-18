@@ -51,6 +51,7 @@
     ripgrep
     tealdeer
     feh
+    dasel
   ];
 
   # Unfree packages
