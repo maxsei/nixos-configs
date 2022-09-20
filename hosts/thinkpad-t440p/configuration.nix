@@ -194,6 +194,8 @@
   programs.dconf.enable = true;                                         
   services.dbus.packages = with pkgs; [ gnome2.GConf ];                 
 
+  # Shell config
+  programs.bash.promptInit = builtins.readFile (./prompt.bash);
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -215,6 +217,27 @@
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
   networking.firewall.checkReversePath = false;
+
+  # Run a dns server to route local domains
+  services.coredns.enable = true;
+  services.coredns.config =
+    ''
+      . {
+        # Forward all dns requests to Cloudflare and Google.
+        forward . 1.1.1.1 1.0.0.1 8.8.8.8 8.8.4.4
+        cache
+      }
+  
+      # ...Except any requests with a .local domain
+      local {
+	# Replace .local domain with 127.0.0.1
+        template IN A  {
+          answer "{{ .Name }} 0 IN A 127.0.0.1"
+        }
+      }
+    '';
+
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
