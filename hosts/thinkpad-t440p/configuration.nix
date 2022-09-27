@@ -52,6 +52,7 @@
     tealdeer
     feh
     dasel
+    obs-studio
   ];
 
   # Unfree packages
@@ -126,6 +127,11 @@
       mouse.naturalScrolling = false;
     };
   };
+   xdg.portal = {
+    enable = true;
+    gtkUsePortal = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-wlr ];
+  };
 
   # Immutable users
   users.mutableUsers = false;
@@ -134,7 +140,7 @@
   users.users.mschulte = {
     isNormalUser = true;
     home = "/home/mschulte";
-    extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "sudo" "docker" "networkmanager" ];
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [
     ];
@@ -171,7 +177,6 @@
 
   environment.shellAliases = {
     "vim" = "nvim";
-    "tldr" = "tealdeer";
   };
 
   # Security
