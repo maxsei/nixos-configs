@@ -138,6 +138,9 @@
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [
     ];
+    openssh.authorizedKeys.keyFiles = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIRtjqZtIJr1Ss6f5dSlRsv2p9G2nI9U8lLZDOUhSy40 maximilliangschulte@pm.me"
+    ]
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -198,8 +201,11 @@
   programs.bash.promptInit = builtins.readFile (./prompt.bash);
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.forwardX11 = true;
+  services.openssh {
+    enable = true;
+    forwardX11 = true;
+    passwordAuthentication = false;
+  }
 
   # Enable syncthing.
   # TODO: declarative configuration https://nixos.wiki/wiki/Syncthing
