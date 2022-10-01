@@ -2,6 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
+
 { config, pkgs, ... }:
 
 {
@@ -28,7 +29,7 @@
     curl
     python
     go
-    neovim
+    (import ../../modules/neovim {inherit pkgs;})
     lf
     git
     docker
@@ -138,9 +139,9 @@
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [
     ];
-    openssh.authorizedKeys.keyFiles = [
+    openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIRtjqZtIJr1Ss6f5dSlRsv2p9G2nI9U8lLZDOUhSy40 maximilliangschulte@pm.me"
-    ]
+    ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -155,25 +156,18 @@
   environment.variables = {
     EDITOR = "nvim";
   };
+  environment.sessionVariables = rec {
+    XDG_CACHE_HOME  = "\${HOME}/.cache";
+    XDG_CONFIG_HOME = "\${HOME}/.config";
+    XDG_BIN_HOME    = "\${HOME}/.local/bin";
+    XDG_DATA_HOME   = "\${HOME}/.local/share";
 
-  # Neovim
-  # runtime.<name>.target
-  # runtime.<name>.source
-  # runtime.<name>.enable
-  # runtime.<name>.text  
-  programs.neovim = {
-    defaultEditor = true;
-    # configure
-    # withRuby
-    vimAlias = true;
-    # runtime
-    # package
-    # viAlias
-    # enable
+    PATH = [
+      "\${XDG_BIN_HOME}"
+    ];
   };
 
   environment.shellAliases = {
-    vim = "nvim";
   };
 
   # Security
@@ -200,11 +194,11 @@
   programs.bash.promptInit = builtins.readFile (./prompt.bash);
 
   # Enable the OpenSSH daemon.
-  services.openssh {
+  services.openssh = {
     enable = true;
     forwardX11 = true;
     passwordAuthentication = false;
-  }
+  };
 
   # Enable syncthing.
   # TODO: declarative configuration https://nixos.wiki/wiki/Syncthing

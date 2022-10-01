@@ -1,0 +1,66 @@
+" Standard
+set exrc
+set secure
+set mouse=n " who the fuck uses mouse in insert mode?
+set bs=2
+set encoding=utf-8
+set autowrite
+set noerrorbells
+set hidden
+set backup
+let &backupdir = expand('$XDG_DATA_HOME/nvim/backup//')
+if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
+set undofile
+set history=10000
+set noswapfile
+set nojoinspaces
+set autoread
+set updatetime=1000 " interval (ms) for autosaving swap
+set redrawtime=1000 " max (ms) for a regex to match
+
+" Show tabs
+set list
+set listchars=tab:>-,trail:~,extends:>,precedes:<
+
+" Spacing
+set autoindent
+set smarttab
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+
+" Appearance
+set number relativenumber
+set textwidth=80
+set nowrap
+set scrolloff=3
+set sidescrolloff=20
+set laststatus=2
+set showcmd
+set ruler
+" set cursorline
+" set cursorcolumn
+
+" Search
+set nohlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+" Completion
+set infercase
+set wildmode=longest,list,full
+set wildmenu
+
+" folds
+set foldmethod=manual
+
+" Catppuccin
+lua << EOF
+vim.g.catppuccin_flavour = "macchiato"
+
+require("catppuccin").setup()
+
+vim.cmd [[colorscheme catppuccin]]
+EOF
