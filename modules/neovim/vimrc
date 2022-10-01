@@ -1,4 +1,29 @@
-" Standard
+" ============================================================================
+" 1. Vim                                                              856f0120
+"   - vim essentials                                                  b73d6bae
+"   - Show tabs                                                       045fe84d
+"   - spacing                                                         fc1c548d
+"   - appearance                                                      a7d6fa94
+"   - search                                                          9e3079ab
+"   - completion                                                      874839b8
+"   - folds                                                           e8b1f9d9
+"   - essential mappings                                              6915f3fd
+"   - toggle hlsearch.                                                121e63b8
+"   - tab over selections keeping selection                           d5f8d282
+"   - cnext and cprevious commands                                    18665ce5
+"   - allow gf to open non-existent files                             7933cedf
+"   - save selection to the 'v' register when entering command mode   ad250cf1
+"   - window resizing                                                 d76e9177
+"   - toggle quickfix window                                          48add5de
+"   - system clipboard                                                a882c5be
+"   - open previously closed split buffer in vertical split mode      7918f786
+" 2. Plugins                                                          99d77836
+"   - catppuccin                                                      7ce56ab4
+" ============================================================================
+
+
+" 1. Vim                                                              856f0120
+" vim essentials                                                      b73d6bae
 set exrc
 set secure
 set mouse=n " who the fuck uses mouse in insert mode?
@@ -18,11 +43,11 @@ set autoread
 set updatetime=1000 " interval (ms) for autosaving swap
 set redrawtime=1000 " max (ms) for a regex to match
 
-" Show tabs
+" Show tabs                                                           045fe84d
 set list
 set listchars=tab:>-,trail:~,extends:>,precedes:<
 
-" Spacing
+" spacing                                                             fc1c548d
 set autoindent
 set smarttab
 set shiftwidth=2
@@ -30,7 +55,7 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 
-" Appearance
+" appearance                                                          a7d6fa94
 set number relativenumber
 set textwidth=80
 set nowrap
@@ -42,21 +67,86 @@ set ruler
 " set cursorline
 " set cursorcolumn
 
-" Search
+" search                                                              9e3079ab
 set nohlsearch
 set incsearch
 set ignorecase
 set smartcase
 
-" Completion
+" completion                                                          874839b8
 set infercase
 set wildmode=longest,list,full
 set wildmenu
 
-" folds
+" folds                                                               e8b1f9d9
 set foldmethod=manual
 
-" Catppuccin
+" essential mappings                                                  6915f3fd
+let mapleader=","
+nnoremap ; :
+nmap Q <nop>
+
+" toggle hlsearch.                                                    121e63b8
+nnoremap <leader>h :set hlsearch! hlsearch?<CR>
+
+" tab over selections keeping selection                               d5f8d282
+vnoremap < <gv
+vnoremap > >gv
+
+" cnext and cprevious commands                                        18665ce5
+nmap <C-n> :cnext<CR>
+nmap <C-p> :cprevious<CR>
+
+" allow gf to open non-existent files                                 7933cedf
+map gf :edit <cfile><cr>
+
+" save selection to the 'v' register when entering command mode       ad250cf1
+vnoremap : "vygv:
+
+" window resizing                                                     d76e9177
+nmap <C-w><C-h> :vertical resize +5<CR>
+nmap <C-w><C-l> :vertical resize -5<CR>
+nmap <C-w><C-j> :resize +5<CR>
+nmap <C-w><C-k> :resize -5<CR>
+
+" " Toggle loclist window
+" function! ToggleLoclist()
+"   if ( getloclist({'winid' : 1}).winid )
+"     lclose
+"   else
+"     lopen
+"   endif
+" endfunction
+" command -bang -nargs=? ToggleLoclist call ToggleLoclist()
+" nmap <leader>L :call ToggleLoclist()<CR>
+
+" toggle quickfix window                                              48add5de
+function! ToggleQuickfix()
+  if ( getqflist({'winid' : 1}).winid )
+    cclose
+  else
+    mark q
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
+command -bang -nargs=? ToggleQuickfix call ToggleQuickfix()
+nmap <leader>Q :call ToggleQuickfix()<CR>
+
+" system clipboard                                                    a882c5be
+vnoremap <silent> <Leader>y "+ygv
+vnoremap <silent> <Leader>d "+dgv<Esc>
+nnoremap <silent> <Leader>p "+p
+nnoremap <silent> <Leader>P "+P
+nnoremap <silent> <Leader>yy V"+y
+nnoremap <silent> <Leader>dd V"+d
+inoremap <silent>  <S-Insert>  <C-R>+
+
+" open previously closed split buffer in vertical split mode          7918f786
+nmap <leader>sp <cmd>vert sbp<CR>
+
+" 2. Plugins                                                          99d77836
+" catppuccin                                                          7ce56ab4
 lua << EOF
 vim.g.catppuccin_flavour = "macchiato"
 
