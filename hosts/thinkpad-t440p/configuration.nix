@@ -173,8 +173,7 @@
   };
 
   environment.shellAliases = {
-    "vim" = "nvim";
-    "tldr" = "tealdeer";
+    vim = "nvim";
   };
 
   # Security
