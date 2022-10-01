@@ -30,6 +30,7 @@
     python
     go
     (import ../../modules/neovim {inherit pkgs;})
+    (import ../../modules/alacritty {inherit pkgs;})
     lf
     git
     docker
