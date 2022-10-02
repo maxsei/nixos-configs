@@ -56,14 +56,12 @@
   ];
 
   # Unfree packages
-  # nixpkgs.config.allowUnfreePredicate = (pkg: builtins.elem (builtins.parseDrvName pkg.name) [ 
-  #   "obsidian"
-  #   "slack"
-  # ]);
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
     "obsidian"
     "slack"
   ];
+  # Enable use of "nix-command"s.
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 
   # The global useDHCP flag is deprecated, therefore explicitly set to false here.
