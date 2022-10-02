@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # yubikey tools
-  environment.systemPackages = with pkgs; [
-    gnupg
-  ];
-
   # expose u2f
   services.udev.packages = with pkgs; [ libu2f-host yubikey-personalization ];
 
