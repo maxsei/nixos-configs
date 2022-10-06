@@ -17,29 +17,29 @@
 "   - toggle quickfix window                                          48add5de
 "   - system clipboard                                                a882c5be
 "   - open previously closed split buffer in vertical split mode      7918f786
-" 2. Plugins                                                          99d77836
+" 2. Filetypes                                                        02af6cf9
+" 3. Plugins                                                          99d77836
 "   - catppuccin                                                      7ce56ab4
 " ============================================================================
 
-
 " 1. Vim                                                              856f0120
 " vim essentials                                                      b73d6bae
+syntax on
+filetype plugin indent on
 set exrc
 set secure
 set mouse=n " who the fuck uses mouse in insert mode?
-set bs=2
 set encoding=utf-8
-set autowrite
 set noerrorbells
 set hidden
 set backup
 let &backupdir = expand('$XDG_DATA_HOME/nvim/backup//')
 if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
 set undofile
-set history=10000
 set noswapfile
-set nojoinspaces
+set history=10000
 set autoread
+set autowrite
 set updatetime=1000 " interval (ms) for autosaving swap
 set redrawtime=1000 " max (ms) for a regex to match
 
@@ -49,23 +49,23 @@ set listchars=tab:>-,trail:~,extends:>,precedes:<
 
 " spacing                                                             fc1c548d
 set autoindent
-set smarttab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set noexpandtab
+set nojoinspaces
+set whichwrap=<,>,[,],b,
+set nowrap
 
 " appearance                                                          a7d6fa94
 set number relativenumber
 set textwidth=80
-set nowrap
+set backspace=indent,eol,start
 set scrolloff=3
 set sidescrolloff=20
 set laststatus=2
 set showcmd
 set ruler
-" set cursorline
-" set cursorcolumn
 
 " search                                                              9e3079ab
 set nohlsearch
@@ -77,6 +77,7 @@ set smartcase
 set infercase
 set wildmode=longest,list,full
 set wildmenu
+set wildignore=*.o,*~,*.pyc
 
 " folds                                                               e8b1f9d9
 set foldmethod=manual
@@ -145,7 +146,9 @@ inoremap <silent>  <S-Insert>  <C-R>+
 " open previously closed split buffer in vertical split mode          7918f786
 nmap <leader>sp <cmd>vert sbp<CR>
 
-" 2. Plugins                                                          99d77836
+" 2. Filetypes                                                        02af6cf9
+
+" 3. Plugins                                                          99d77836
 " catppuccin                                                          7ce56ab4
 lua << EOF
 vim.g.catppuccin_flavour = "macchiato"
