@@ -20,6 +20,7 @@
 " 2. Filetypes                                                        02af6cf9
 " 3. Plugins                                                          99d77836
 "   - catppuccin                                                      7ce56ab4
+"   - commentary                                                      90732019
 " ============================================================================
 
 " 1. Vim                                                              856f0120
@@ -53,6 +54,7 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set noexpandtab
+" TODO: I want to fork vim to conditionally expand tabs based on indentation/alignment
 set nojoinspaces
 set whichwrap=<,>,[,],b,
 set nowrap
@@ -147,6 +149,9 @@ inoremap <silent>  <S-Insert>  <C-R>+
 nmap <leader>sp <cmd>vert sbp<CR>
 
 " 2. Filetypes                                                        02af6cf9
+"
+" Vim
+autocmd FileType vim setlocal commentstring='\"%s' " commentary:90732019
 
 " 3. Plugins                                                          99d77836
 " catppuccin                                                          7ce56ab4
@@ -157,3 +162,5 @@ require("catppuccin").setup()
 
 vim.cmd [[colorscheme catppuccin]]
 EOF
+
+" commentary                                                          90732019
