@@ -101,7 +101,8 @@ nmap <C-n> :cnext<CR>
 nmap <C-p> :cprevious<CR>
 
 " allow gf to open non-existent files                                 7933cedf
-map gf :edit <cfile><cr>
+nnoremap gf :edit <cfile><cr>
+nnoremap <C-w>gf gF:tabe <cfile><cr>
 
 " save selection to the 'v' register when entering command mode       ad250cf1
 vnoremap : "vygv:
