@@ -18,6 +18,7 @@
 "   - system clipboard                                                a882c5be
 "   - open previously closed split buffer in vertical split mode      7918f786
 " 2. Filetypes                                                        02af6cf9
+"   - Vim                                                             db680595
 " 3. Plugins                                                          99d77836
 "   - catppuccin                                                      7ce56ab4
 "   - commentary                                                      90732019
@@ -138,21 +139,25 @@ command -bang -nargs=? ToggleQuickfix call ToggleQuickfix()
 nmap <leader>Q :call ToggleQuickfix()<CR>
 
 " system clipboard                                                    a882c5be
-vnoremap <silent> <Leader>y "+ygv
-vnoremap <silent> <Leader>d "+dgv<Esc>
-nnoremap <silent> <Leader>p "+p
-nnoremap <silent> <Leader>P "+P
-nnoremap <silent> <Leader>yy V"+y
-nnoremap <silent> <Leader>dd V"+d
-inoremap <silent>  <S-Insert>  <C-R>+
+vnoremap <silent> <Leader>y   "+ygv
+vnoremap <silent> <Leader>d   "+dgv<Esc>
+nnoremap <silent> <Leader>p   "+p
+nnoremap <silent> <Leader>P   "+P
+nnoremap <silent> <Leader>yy  V"+y
+nnoremap <silent> <Leader>dd  V"+d
+inoremap <silent> <S-Insert>  <C-R>+
 
 " open previously closed split buffer in vertical split mode          7918f786
 nmap <leader>sp <cmd>vert sbp<CR>
 
 " 2. Filetypes                                                        02af6cf9
-"
-" Vim
+" Vim                                                                 db680595
 autocmd FileType vim setlocal commentstring='\"%s' " commentary:90732019
+" Nix                                                                 cc26a1a5
+autocmd FileType nix setlocal shiftwidth=2
+autocmd FileType nix setlocal tabstop=2
+autocmd FileType nix setlocal expandtab
+autocmd FileType nix setlocal softtabstop=2
 
 " 3. Plugins                                                          99d77836
 " catppuccin                                                          7ce56ab4
