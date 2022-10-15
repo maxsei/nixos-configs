@@ -43,6 +43,7 @@
       "sudo"
       "docker"
       "networkmanager"
+      "adbusers"
     ];
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [];
@@ -79,6 +80,7 @@
     tealdeer
     feh
     dasel
+    android-udev-rules
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
@@ -106,6 +108,8 @@
   programs.mtr.enable = true;
   programs.dconf.enable = true;
   programs.bash.promptInit = builtins.readFile (./prompt.bash);
+  programs.adb.enable = true;
+
 
   # Services (https://nixos.wiki/wiki/NixOS_modules)
   # XServer configuation.
@@ -152,6 +156,10 @@
   services.syncthing.enable = true;
   services.syncthing.user = "mschulte";
   services.syncthing.configDir = "/home/mschulte/.config/syncthing";   # Folder for Syncthing's settings and keys
+  # MTP
+  services.gvfs.enable = true;
+
+
   # Virtualisation
   virtualisation.docker.enable = true;
 
