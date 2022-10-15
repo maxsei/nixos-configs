@@ -56,7 +56,7 @@
     curl
     python
     go
-    (import ../../modules/neovim {inherit pkgs;})
+    (import ../../pkgs/neovim {inherit pkgs;})
     lf
     git
     docker
