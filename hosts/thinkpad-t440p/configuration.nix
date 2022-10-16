@@ -81,11 +81,17 @@
     feh
     dasel
     android-udev-rules
+    vlc
+    ngrok
+    python39Packages.qrcode # qr
+    qrcp
+    unzip
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
     "obsidian"
     "slack"
+    "ngrok"
   ];
 
   # Environment variables
