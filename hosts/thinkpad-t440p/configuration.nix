@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../common/yubikey.nix
+    ../../common/nixops
   ];
 
   # Boot
@@ -86,6 +87,7 @@
     python39Packages.qrcode # qr
     qrcp
     unzip
+    nixops
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
