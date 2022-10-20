@@ -11,12 +11,18 @@ __ps1() {
 
   p=$u
 
+  # Shell depth.
+	local depth
+	if [ $SHLVL -gt 1 ]; then
+		depth="$(seq 2 $SHLVL | xargs -L 1 printf ">%.0s") "
+	fi
+
   # Git branch
   B=$(git branch --show-current 2>/dev/null)
   [[ $B == master || $B == main ]] && b="$r"
   [[ -n "$B" ]] && B="$g($b$B$g)"
 
-  PS1="$u\u$g@$h\h$g:$w\w$B$p$P$x "
+  PS1="$depth$u\u$g@$h\h$g:$w\w$B$p$P$x "
 }
 
 PROMPT_COMMAND="__ps1"
