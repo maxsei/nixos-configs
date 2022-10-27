@@ -21,10 +21,10 @@ in
     configure = {
       packages.myplugins = with pkgs.vimPlugins; {
         start = [
-          # catppuccin-nvim
           catppuccin-nvim-2022-09-29
           vim-nix
           vim-commentary
+          vim-graphql
         ];
       };
       customRC = builtins.readFile (./vimrc);
