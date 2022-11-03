@@ -24,6 +24,7 @@
 " 3. Plugins                                                          99d77836
 "   - catppuccin                                                      7ce56ab4
 "   - commentary                                                      90732019
+"   - lspconfig                                                       b1883220
 " ============================================================================
 
 " 1. Vim                                                              856f0120
@@ -83,6 +84,7 @@ set infercase
 set wildmode=longest,list,full
 set wildmenu
 set wildignore=*.o,*~,*.pyc
+set wildignorecase
 
 " folds                                                               e8b1f9d9
 set foldmethod=manual
@@ -116,29 +118,23 @@ nmap <C-w><C-l> :vertical resize -5<CR>
 nmap <C-w><C-j> :resize +5<CR>
 nmap <C-w><C-k> :resize -5<CR>
 
-" " Toggle loclist window
-" function! ToggleLoclist()
-"   if ( getloclist({'winid' : 1}).winid )
-"     lclose
-"   else
-"     lopen
-"   endif
-" endfunction
-" command -bang -nargs=? ToggleLoclist call ToggleLoclist()
-" nmap <leader>L :call ToggleLoclist()<CR>
-
 " toggle quickfix window                                              48add5de
 function! ToggleQuickfix()
   if ( getqflist({'winid' : 1}).winid )
     cclose
   else
-    mark q
-    copen 10
-    let g:qfix_win = bufnr("$")
+		" open/populate quickfix list and return to original window.
+    let orgwin = win_getid()
+    lua vim.diagnostic.setqflist()
+		call win_gotoid(orgwin)
+		" go to previous error and then back to original position
+    let orgpos = getpos('.')
+    cabove
+    call setpos('.', orgpos)
   endif
 endfunction
 command -bang -nargs=? ToggleQuickfix call ToggleQuickfix()
-nmap <leader>Q :call ToggleQuickfix()<CR>
+nmap <leader>q :call ToggleQuickfix()<CR>
 
 " system clipboard                                                    a882c5be
 vnoremap <silent> <Leader>y   "+ygv
@@ -154,7 +150,7 @@ nmap <leader>sp <cmd>vert sbp<CR>
 
 " 2. Filetypes                                                        02af6cf9
 " vim                                                                 db680595
-autocmd FileType vim setlocal commentstring='\"%s' " commentary:90732019
+autocmd FileType vim setlocal commentstring=\"%s " commentary:90732019
 " nix                                                                 cc26a1a5
 autocmd FileType nix setlocal shiftwidth=2
 autocmd FileType nix setlocal tabstop=2
@@ -176,3 +172,150 @@ vim.cmd [[colorscheme catppuccin]]
 EOF
 
 " commentary                                                          90732019
+
+" lspconfig                                                           b1883220
+
+lua << EOF
+local nvim_lsp = require('lspconfig')
+local util = require('lspconfig/util')
+
+-- Use an on_attach function to only map the following keys
+-- after the language server attaches to the current buffer
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+end
+
+-- Pylsp.
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
+-- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+nvim_lsp['pylsp'].setup {
+  on_attach = on_attach,
+  flags = {
+    debounce_text_changes = 150,
+  },
+  settings = {
+    pylsp = {
+      configurationSources = {
+        'flake8',
+      },
+      plugins = {
+        flake8 = {
+          enabled = true,
+        },
+      },
+    },
+  },
+root_dir = function(fname)
+  local root_files = {
+    'pyproject.toml',
+    'setup.py',
+    'setup.cfg',
+    'requirements.txt',
+    'Pipfile',
+    -- Flake8
+    '.flake8',
+  }
+  return util.root_pattern(unpack(root_files))(fname) or util.find_git_ancestor(fname)
+end,
+}
+
+-- Svelte.
+-- nvim_lsp['svelte'].setup {}
+
+-- Go.
+nvim_lsp['gopls'].setup {
+  cmd = {"gopls", "serve"},
+  single_file_support = true,
+  settings = {
+    gopls = {
+      analyses = {
+        unusedparams = true,
+      },
+      staticcheck = true,
+    },
+  },
+}
+
+-- -- eslint.
+-- nvim_lsp['eslint'].setup {
+--    -- cmd = { "npx", "-p", "vscode-langservers-extracted", "vscode-eslint-language-server", "--stdio" },
+--    cmd = { "npx", "eslint_d", "--stdin" },
+-- }
+
+-- tsserver.
+nvim_lsp['tsserver'].setup {
+  cmd = { "npx", "typescript-language-server", "--stdio" },
+  capabilities = {
+    textDocument = {
+      publishDiagnostics = false,
+    },
+  },
+}
+
+-- nvim_lsp['eslint'].setup{
+--   -- bin = 'eslint', -- or `eslint_d`
+--   cmd = { "npx", "eslint_d", "--stdin" },
+--   diagnostics = {
+--     enable = true,
+--   },
+-- }
+
+-- eslint diagnostics.
+nvim_lsp['diagnosticls'].setup{
+  on_attach= function(client)
+    print("'" .. client.name .. "' attached.")
+  end,
+  cmd = { "npx", "diagnostic-languageserver", "--stdio" },
+  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'scss' },
+  init_options = {
+    linters = {
+      eslint_d = {
+        command = 'npx',
+        -- rootPatterns = { '.git' },
+        debounce = 100,
+        args = { 'eslint_d', '--stdin', '--stdin-filename', '%filepath', '--format', 'json' }
+      },
+    },
+    filetypes = {
+      css = 'eslint_d',
+      scss = 'eslint_d',
+      javascript = 'eslint_d',
+      javascriptreact = 'eslint_d',
+      typescript = 'eslint_d',
+      typescriptreact = 'eslint_d'
+    }
+  }
+}
+
+-- Nix.
+nvim_lsp['rnix'].setup {}
+EOF
+
+" Try and find the definition of the thing if not then find the typedef.
+lua << EOF
+function _G.goto_type_or_definition()
+  if pcall(vim.lsp.buf.definition) then
+  else
+    vim.lsp.buf.type_definition()
+  end
+end
+EOF
+
+nnoremap <C-]> <cmd>lua goto_type_or_definition()<CR>
+
+" We need help in vim damnit!
+if &filetype != 'vim'
+  nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
+endif
+
+" Some mappings 🤪
+nnoremap gI <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <leader>sr <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>* <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <leader>l <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+" nnoremap <leader>Q <cmd>lua vim.lsp.diagnostic.set_qflist()<CR>
