@@ -9,8 +9,6 @@
   # directly.
   imports = [
     ./hardware-configuration.nix
-    ../../modules/yubikey.nix
-    ../../modules/nixops
   ];
 
   # Boot
@@ -87,7 +85,6 @@
     python39Packages.qrcode # qr
     qrcp
     unzip
-    nixops
     signal-desktop
   ];
   # Unfree packages
