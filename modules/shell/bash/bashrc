@@ -1,0 +1,24 @@
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# enable XON/XOFF flow control
+# Historically ctrl-s was used to "[s]uspend" the shell now used to move forward in reverse search
+stty -ixon
+setopt interactive_comments
+
+# Bash history
+shopt -s histappend
+export HISTSIZE= HISTFILESIZE= # infinite history
+export HISTTIMEFORMAT="%a %B-%e %k:%M "
+export PROMPT_COMMAND='history -a'
+
+# Auto cd into directory
+shopt -s autocd
+
+shopt -s checkwinsize
+
+# Auto complete
+# Ignore case on auto-completion
+if [[ $iatest > 0 ]]; then bind "set completion-ignore-case on"; fi
+# Show auto-completion list automatically, without double tab
+if [[ $iatest > 0 ]]; then bind "set show-all-if-ambiguous On"; fi

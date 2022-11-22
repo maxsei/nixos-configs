@@ -9,6 +9,7 @@
   # directly.
   imports = [
     ./hardware-configuration.nix
+    ../../modules/shell
   ];
 
   # Boot
@@ -113,7 +114,6 @@
   # Programs (https://nixos.wiki/wiki/NixOS_modules)
   programs.mtr.enable = true;
   programs.dconf.enable = true;
-  programs.bash.promptInit = builtins.readFile (./prompt.bash);
   programs.adb.enable = true;
 
 
