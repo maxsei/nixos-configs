@@ -88,6 +88,7 @@
     qrcp
     unzip
     nixops
+    signal-desktop
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
