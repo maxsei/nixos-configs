@@ -9,8 +9,7 @@
   # directly.
   imports = [
     ./hardware-configuration.nix
-    ../../common/yubikey.nix
-    ../../common/nixops
+    ../../modules/shell
   ];
 
   # Boot
@@ -87,7 +86,7 @@
     python39Packages.qrcode # qr
     qrcp
     unzip
-    nixops
+    signal-desktop
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
@@ -115,7 +114,6 @@
   # Programs (https://nixos.wiki/wiki/NixOS_modules)
   programs.mtr.enable = true;
   programs.dconf.enable = true;
-  programs.bash.promptInit = builtins.readFile (./prompt.bash);
   programs.adb.enable = true;
 
 
