@@ -9,8 +9,8 @@
   # directly.
   imports = [
     ./hardware-configuration.nix
-    ../../common/yubikey.nix
-    ../../common/nixops
+    ../../modules/yubikey.nix
+    ../../modules/nixops
   ];
 
   # Boot

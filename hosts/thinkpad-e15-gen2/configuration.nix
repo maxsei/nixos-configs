@@ -8,9 +8,9 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../../common/yubikey.nix
-      # ../../common/neovim
-      # ../../common/wayland.nix
+      ../../modules/yubikey.nix
+      # ../../modules/neovim
+      # ../../modules/wayland.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
