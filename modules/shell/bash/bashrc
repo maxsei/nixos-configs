@@ -1,10 +1,11 @@
+#!/usr/bin/env bash
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 # enable XON/XOFF flow control
 # Historically ctrl-s was used to "[s]uspend" the shell now used to move forward in reverse search
 stty -ixon
-setopt interactive_comments
+shopt -s interactive_comments
 
 # Bash history
 shopt -s histappend
