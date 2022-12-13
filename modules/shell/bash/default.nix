@@ -9,5 +9,5 @@
     libsearch="ldconfig -p | grep $@";
   };
   programs.bash.vteIntegration = true;
-  programs.bash.shellInit = builtins.readFile (./bashrc);
+  programs.bash.interactiveShellInit = builtins.readFile (./bashrc);
 }
