@@ -87,6 +87,13 @@
     qrcp
     unzip
     signal-desktop
+    cloc
+    ffmpeg
+    gnumake
+    meld
+    nixfmt
+    patchelf
+    pkg-config
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
