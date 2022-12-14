@@ -87,7 +87,7 @@
     qrcp
     unzip
     signal-desktop
-    cloc
+    scc
     ffmpeg
     gnumake
     meld
