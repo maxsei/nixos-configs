@@ -94,6 +94,8 @@
     nixfmt
     patchelf
     pkg-config
+    clang
+    clang-tools
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
