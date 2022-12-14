@@ -264,6 +264,8 @@ nvim_lsp['tsserver'].setup {
 --   },
 -- }
 
+nvim_lsp['clangd'].setup{}
+
 -- eslint diagnostics.
 nvim_lsp['diagnosticls'].setup{
   on_attach= function(client)
