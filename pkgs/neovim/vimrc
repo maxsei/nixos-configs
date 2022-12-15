@@ -25,6 +25,7 @@
 "   - catppuccin                                                      7ce56ab4
 "   - commentary                                                      90732019
 "   - lspconfig                                                       b1883220
+"   - deoplete                                                        16df4499
 " ============================================================================
 
 " 1. Vim                                                              856f0120
@@ -321,3 +322,8 @@ nnoremap <leader>sr <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>* <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <leader>l <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 " nnoremap <leader>Q <cmd>lua vim.lsp.diagnostic.set_qflist()<CR>
+
+
+" - deoplete                                                          16df4499
+let g:deoplete#enable_at_startup = 1
+autocmd CompleteDone * silent! pclose!
