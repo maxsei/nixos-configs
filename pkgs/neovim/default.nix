@@ -8,7 +8,16 @@ in pkgs.neovim.override {
   vimAlias = true;
   configure = {
     packages.myplugins = with pkgs.vimPlugins; {
-      start = [ vim-nix vim-commentary vim-graphql deoplete-lsp trouble-nvim nvim-treesitter ]
+      start = [
+        vim-nix
+        vim-graphql
+        # nvim-autopairs
+        # surround-nvim
+        vim-commentary
+        deoplete-nvim
+        deoplete-lsp
+        trouble-nvim
+        nvim-treesitter ]
         ++ plugins-extra-list;
     };
     customRC = builtins.readFile (./vimrc);
