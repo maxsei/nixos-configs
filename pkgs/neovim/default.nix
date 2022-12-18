@@ -11,7 +11,9 @@ in pkgs.neovim.override {
       start = [
         vim-nix
         vim-graphql
-        # nvim-autopairs
+        ultisnips
+        vim-snippets
+        nvim-autopairs
         # surround-nvim
         vim-commentary
         deoplete-nvim
