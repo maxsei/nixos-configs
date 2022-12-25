@@ -96,6 +96,7 @@
     pkg-config
     clang
     clang-tools
+    zathura
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
