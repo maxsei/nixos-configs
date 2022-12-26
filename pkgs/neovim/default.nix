@@ -13,6 +13,7 @@ in pkgs.neovim.override {
         vim-graphql
         ultisnips
         vim-snippets
+        vim-fugitive
         nvim-autopairs
         # surround-nvim
         vim-commentary
