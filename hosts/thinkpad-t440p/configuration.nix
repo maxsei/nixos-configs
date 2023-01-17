@@ -86,7 +86,7 @@
     python39Packages.qrcode # qr
     qrcp
     unzip
-    signal-desktop
+    (callPackage ../../pkgs/signal-desktop {})
     scc
     ffmpeg
     gnumake
