@@ -1,7 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   # Imports
   # imports i.e. nixos module injection (things that modify system
@@ -50,6 +50,7 @@
     openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7OTBmjOKBHhwvkiO1sQR7X1SMkR33L1EVAHWGfOp/s maximilliangschulte@pm.me" ];
   };
 
+
   # System Packages
   environment.systemPackages = with pkgs; [
     wget
@@ -62,8 +63,7 @@
     docker
     ecryptfs
     ecryptfs-helper
-    # firefox
-    firefox-wayland
+    firefox-bin
     xclip
     gcc
     xclip
@@ -167,6 +167,16 @@
   services.pipewire.jack.enable = true;
   hardware.pulseaudio.enable = false;
   sound.enable = true;
+  # OpenGL
+  hardware.opengl.enable = true;
+  environment.variables = {
+    VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkDefault "va_gl");
+  };
+  hardware.opengl.extraPackages = with pkgs; [
+    vaapiIntel
+    libvdpau-va-gl
+    intel-media-driver
+  ];
   # Syncthing
   # TODO: declarative configuration https://nixos.wiki/wiki/Syncthing
   services.syncthing.enable = true;
