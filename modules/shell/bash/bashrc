@@ -14,7 +14,7 @@ export HISTTIMEFORMAT="%a %B-%e %k:%M "
 export PROMPT_COMMAND='history -a'
 
 # Auto cd into directory
-shopt -s autocd
+# shopt -s autocd
 
 shopt -s checkwinsize
 
