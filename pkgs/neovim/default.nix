@@ -9,8 +9,10 @@ in pkgs.neovim.override {
   configure = {
     packages.myplugins = with pkgs.vimPlugins; {
       start = [
+        zig-vim
         vim-nix
         vim-graphql
+        vim-svelte
         ultisnips
         vim-snippets
         vim-fugitive

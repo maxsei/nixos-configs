@@ -226,7 +226,7 @@ end,
 }
 
 -- Svelte.
--- nvim_lsp['svelte'].setup {}
+nvim_lsp['svelte'].setup {}
 
 -- Go.
 nvim_lsp['gopls'].setup {
@@ -267,6 +267,8 @@ nvim_lsp['tsserver'].setup {
 -- }
 
 nvim_lsp['clangd'].setup{}
+
+nvim_lsp['zls'].setup{}
 
 -- eslint diagnostics.
 nvim_lsp['diagnosticls'].setup{
