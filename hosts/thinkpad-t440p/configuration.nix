@@ -97,6 +97,8 @@
     clang
     clang-tools
     zathura
+    zls
+    nodePackages.svelte-language-server
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
