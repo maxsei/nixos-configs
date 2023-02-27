@@ -167,10 +167,12 @@ autocmd FileType markdown setlocal spell
 " catppuccin                                                          7ce56ab4
 lua << EOF
 vim.g.catppuccin_flavour = "macchiato"
-
 require("catppuccin").setup()
-
 vim.cmd [[colorscheme catppuccin]]
+if vim.env.TERM == 'alacritty' then
+	vim.api.nvim_set_hl(0, "NonText", {ctermbg=NONE})
+	vim.api.nvim_set_hl(0, "Normal", {guibg=NONE, ctermbg=NONE})
+end
 EOF
 
 " commentary                                                          90732019
