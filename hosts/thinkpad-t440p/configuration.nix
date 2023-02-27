@@ -99,6 +99,7 @@
     zathura
     zls
     nodePackages.svelte-language-server
+    (callPackage ../../pkgs/alacritty {})
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
