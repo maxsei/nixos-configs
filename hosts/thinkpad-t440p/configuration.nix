@@ -56,6 +56,7 @@
     wget
     curl
     python
+    python38
     go
     (callPackage ../../pkgs/neovim {inherit pkgs;})
     lf
@@ -97,6 +98,7 @@
     clang
     clang-tools
     zathura
+    zig
     zls
     nodePackages.svelte-language-server
     (callPackage ../../pkgs/alacritty {})
@@ -133,7 +135,6 @@
   # Services (https://nixos.wiki/wiki/NixOS_modules)
   # XServer configuation.
   services.xserver.enable = true;
-  services.xserver.windowManager.bspwm.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.dpi = 96;
