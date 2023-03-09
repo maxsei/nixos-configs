@@ -64,10 +64,10 @@ set noexpandtab
 set nojoinspaces
 set whichwrap=<,>,[,],b,
 set nowrap
+set textwidth=80
 
 " appearance                                                          a7d6fa94
 set number relativenumber
-set textwidth=80
 set backspace=indent,eol,start
 set scrolloff=3
 set sidescrolloff=20
@@ -169,10 +169,10 @@ lua << EOF
 vim.g.catppuccin_flavour = "macchiato"
 require("catppuccin").setup()
 vim.cmd [[colorscheme catppuccin]]
-if vim.env.TERM == 'alacritty' then
-	vim.api.nvim_set_hl(0, "NonText", {ctermbg=NONE})
-	vim.api.nvim_set_hl(0, "Normal", {guibg=NONE, ctermbg=NONE})
-end
+-- if vim.env.TERM == 'alacritty' then
+-- 	vim.api.nvim_set_hl(0, "NonText", {ctermbg=NONE})
+-- 	vim.api.nvim_set_hl(0, "Normal", {guibg=NONE, ctermbg=NONE})
+-- end
 EOF
 
 " commentary                                                          90732019
