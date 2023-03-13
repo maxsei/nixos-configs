@@ -21,6 +21,7 @@
 "   - vim                                                             db680595
 "   - nix                                                             cc26a1a5
 "   - markdown                                                        b8da4ee5
+"   - astro                                                           39b32dc4
 " 3. Plugins                                                          99d77836
 "   - catppuccin                                                      7ce56ab4
 "   - commentary                                                      90732019
@@ -162,6 +163,15 @@ autocmd FileType nix setlocal softtabstop=2
 autocmd FileType markdown setlocal wrap
 autocmd FileType markdown setlocal tw=0
 autocmd FileType markdown setlocal spell
+" astro                                                               39b32dc4
+autocmd BufRead,BufEnter *.astro set filetype=astro
+lua << EOF
+vim.filetype.add({
+    extension = {
+        astro = "astro"
+    }
+})
+EOF
 
 " 3. Plugins                                                          99d77836
 " catppuccin                                                          7ce56ab4
@@ -229,6 +239,11 @@ end,
 
 -- Svelte.
 nvim_lsp['svelte'].setup {}
+
+-- Astro
+nvim_lsp['astro'].setup {
+  cmd = { "npx", "astro-ls", "--stdio" },
+}
 
 -- Go.
 nvim_lsp['gopls'].setup {
