@@ -59,7 +59,7 @@ in pkgs.neovim.override {
         zig-vim
         vim-nix
         vim-graphql
-        # vim-svelte
+        vim-svelte
         vim-astro
         ultisnips
         vim-snippets
