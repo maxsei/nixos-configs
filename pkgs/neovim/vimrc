@@ -17,6 +17,7 @@
 "   - toggle quickfix window                                          48add5de
 "   - system clipboard                                                a882c5be
 "   - open previously closed split buffer in vertical split mode      7918f786
+"   - mappings for opening netrw (directory) buffers                  1e90763b
 " 2. Filetypes                                                        02af6cf9
 "   - vim                                                             db680595
 "   - nix                                                             cc26a1a5
@@ -150,6 +151,22 @@ inoremap <silent> <S-Insert>  <C-R>+
 
 " open previously closed split buffer in vertical split mode          7918f786
 nmap <leader>sp <cmd>vert sbp<CR>
+
+" mappings for opening netrw (directory) buffers                      1e90763b
+function! ToggleNetrwSideBar()
+  if exists("b:new_window_id")
+    call win_execute(b:new_window_id, ':q')
+    " for some reason this var unlets itself ¯\_(ツ)_/¯
+    " unlet b:new_window_id
+  else
+    vs .
+    let b:new_window_id = win_getid()
+    call win_execute(b:new_window_id, 'vertical-resize 40')
+    call win_execute(b:new_window_id, 'vertical-wincmd H')
+  endif
+endfunction
+
+nnoremap <silent> <leader>n :call ToggleNetrwSideBar()<CR>
 
 " 2. Filetypes                                                        02af6cf9
 " vim                                                                 db680595
