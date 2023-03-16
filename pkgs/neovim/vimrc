@@ -182,13 +182,6 @@ autocmd FileType markdown setlocal tw=0
 autocmd FileType markdown setlocal spell
 " astro                                                               39b32dc4
 autocmd BufRead,BufEnter *.astro set filetype=astro
-lua << EOF
-vim.filetype.add({
-    extension = {
-        astro = "astro"
-    }
-})
-EOF
 
 " 3. Plugins                                                          99d77836
 " catppuccin                                                          7ce56ab4
@@ -259,7 +252,12 @@ nvim_lsp['svelte'].setup {}
 
 -- Astro
 nvim_lsp['astro'].setup {
-  cmd = { "npx", "astro-ls", "--stdio" },
+  cmd = { 'npx', 'astro-ls', '--stdio' },
+  init_options = {
+    typescript = {
+      serverPath = 'typescript/lib/tsserverlibrary.js',
+    },
+  }
 }
 
 -- Go.
