@@ -330,7 +330,7 @@ nvim_lsp['diagnosticls'].setup{
 }
 
 -- Nix.
-nvim_lsp['rnix'].setup {}
+nvim_lsp['nil_ls'].setup {}
 EOF
 
 " Try and find the definition of the thing if not then find the typedef.
