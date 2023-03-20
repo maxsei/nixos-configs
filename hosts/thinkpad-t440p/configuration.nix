@@ -103,6 +103,7 @@
     nodePackages.svelte-language-server
     (callPackage ../../pkgs/alacritty {})
     nodejs
+    (callPackage ../../pkgs/nil {})
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
