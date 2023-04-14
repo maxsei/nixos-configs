@@ -103,6 +103,8 @@
     nodePackages.svelte-language-server
     (callPackage ../../pkgs/alacritty {})
     nodejs
+    wireshark
+    nmap
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
