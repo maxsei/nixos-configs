@@ -29,6 +29,7 @@
 "   - lspconfig                                                       b1883220
 "   - deoplete                                                        16df4499
 "   - ultisnips                                                       282c8d63
+"   - fugitive                                                        e8aaa4aa
 " ============================================================================
 
 " 1. Vim                                                              856f0120
@@ -46,6 +47,7 @@ let &backupdir = expand('$XDG_DATA_HOME/nvim/backup//')
 if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
 set undofile
 set noswapfile
+set autoread
 set history=10000
 set autoread
 set autowrite
@@ -376,3 +378,7 @@ let g:ultisnips_python_style="google"
 let g:snips_author = "Max Schulte"
 let g:snips_email = "maximilliangschulte@pm.me"
 let g:snips_github = "maxsei"
+"   - fugitive                                                        e8aaa4aa
+nnoremap <silent> <leader>gv :Gvdiffsplit!<CR>
+nnoremap <silent> <leader>gf :norm d2o<CR>
+nnoremap <silent> <leader>gj :norm d3o<CR>
