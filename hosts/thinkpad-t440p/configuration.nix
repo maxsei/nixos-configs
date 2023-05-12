@@ -105,6 +105,10 @@
     nodejs
     wireshark
     nmap
+    filezilla
+    android-tools
+    scrcpy
+    gotools
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
