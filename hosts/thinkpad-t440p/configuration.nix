@@ -48,7 +48,6 @@
     ];
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [];
-    openssh.authorizedKeys.keys = [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7OTBmjOKBHhwvkiO1sQR7X1SMkR33L1EVAHWGfOp/s maximilliangschulte@pm.me" ];
   };
 
 
