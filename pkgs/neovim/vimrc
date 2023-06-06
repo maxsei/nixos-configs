@@ -1,6 +1,7 @@
 " ============================================================================
 " 1. Vim                                                              856f0120
 "   - vim essentials                                                  b73d6bae
+"   - autoread                                                        2a1cdfd3
 "   - Show tabs                                                       045fe84d
 "   - spacing                                                         fc1c548d
 "   - appearance                                                      a7d6fa94
@@ -47,12 +48,14 @@ let &backupdir = expand('$XDG_DATA_HOME/nvim/backup//')
 if !isdirectory(&backupdir) | call mkdir(&backupdir, "p") | endif
 set undofile
 set noswapfile
-set autoread
 set history=10000
-set autoread
-set autowrite
 set updatetime=1000 " interval (ms) for autosaving swap
 set redrawtime=1000 " max (ms) for a regex to match
+
+" autoread                                                            2a1cdfd3
+set autoread
+set autowrite
+autocmd BufEnter,FocusGained,VimResume * checktime
 
 " Show tabs                                                           045fe84d
 set list
