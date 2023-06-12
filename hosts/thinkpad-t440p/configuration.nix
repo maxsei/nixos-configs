@@ -62,6 +62,7 @@
     lf
     git
     docker
+    docker-compose
     ecryptfs
     ecryptfs-helper
     firefox-bin
