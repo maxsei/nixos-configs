@@ -17,6 +17,10 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
+  # Enable libvirtd
+  boot.kernelModules = [ "kvm-intel" ];
+  virtualisation.libvirtd.enable = true;
+
   # Timezone and Locale
   time.timeZone = "America/Chicago";
   i18n.defaultLocale = "en_US.UTF-8";
@@ -87,7 +91,7 @@
     ngrok
     python39Packages.qrcode # qr
     qrcp
-    unzip
+    zip
     (callPackage ../../pkgs/signal-desktop {})
     scc
     ffmpeg
@@ -171,6 +175,19 @@
   # Firewall
   networking.firewall.enable = false;
   networking.firewall.checkReversePath = false;
+  # networking.firewall = {
+  #   enable = true;
+  #   allowedTCPPorts = [ 64172 ];
+  #   allowedUDPPorts = [ 67 69 4011 ];
+  # };
+  # Nameservers
+  networking.nameservers = [ "8.8.8.8" ];
+  # networking.macvlans = {
+  #   wan = {
+  #     interface = "wlp3s0";
+  #     mode = "passthru";
+  #   };
+  # };
   # Pipewire
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;
