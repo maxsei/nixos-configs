@@ -91,6 +91,7 @@
     ngrok
     python39Packages.qrcode # qr
     qrcp
+    unzip
     zip
     (callPackage ../../pkgs/signal-desktop {})
     scc
@@ -114,6 +115,7 @@
     android-tools
     scrcpy
     gotools
+    file
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
