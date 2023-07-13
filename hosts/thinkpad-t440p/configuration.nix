@@ -166,6 +166,10 @@
   services.openssh.passwordAuthentication = false;
   # Gnome auxilary services
   services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+  services.udev.extraRules = ''
+    # Allows members of the wireshark group to access the usbmon device
+    SUBSYSTEM=="usbmon", GROUP="wireshark", MODE="0640"
+  '';
   services.dbus.packages = with pkgs; [ gnome2.GConf ];
   # Networking
   # Hostname
