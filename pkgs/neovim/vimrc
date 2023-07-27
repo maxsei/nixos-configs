@@ -266,6 +266,12 @@ nvim_lsp['astro'].setup {
 }
 
 -- Go.
+-- nvim_lsp['golangci_lint_ls'].setup {
+-- 	filetypes = {'go','gomod'}
+-- 	init_options = {
+-- 		command = { "golangci-lint", "run", "--disable-all", "--out-format", "json" },
+-- 	},
+-- }
 nvim_lsp['gopls'].setup {
   cmd = {"gopls", "serve"},
   single_file_support = true,

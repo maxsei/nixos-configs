@@ -116,6 +116,8 @@
     scrcpy
     gotools
     file
+    golangci-lint
+    (callPackage ../../pkgs/golangci-lint-langserver {})
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
