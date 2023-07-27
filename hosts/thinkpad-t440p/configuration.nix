@@ -153,6 +153,8 @@
   services.xserver.enable = true;
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
+  # wtf why is this shit software even on my system it leaks memory like a mf
+  services.packagekit.enable = true;
   services.xserver.dpi = 96;
   services.xserver.layout = "us";
   services.xserver.xkbOptions = "caps:escape";
