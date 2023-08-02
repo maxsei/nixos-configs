@@ -115,9 +115,11 @@
     android-tools
     scrcpy
     gotools
+    gopls
     file
     golangci-lint
     (callPackage ../../pkgs/golangci-lint-langserver {})
+    dbeaver
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
