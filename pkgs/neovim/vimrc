@@ -31,6 +31,8 @@
 "   - deoplete                                                        16df4499
 "   - ultisnips                                                       282c8d63
 "   - fugitive                                                        e8aaa4aa
+"   - telescope                                                       c8cd0c97
+"   2437f54a-5776-45e8-b8c6-f3f360ea41b4
 " ============================================================================
 
 " 1. Vim                                                              856f0120
@@ -391,3 +393,9 @@ let g:snips_github = "maxsei"
 nnoremap <silent> <leader>gv :Gvdiffsplit!<CR>
 nnoremap <silent> <leader>gf :norm d2o<CR>
 nnoremap <silent> <leader>gj :norm d3o<CR>
+
+" telescope                                                           c8cd0c97
+lua << EOF
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>/', builtin.live_grep, {})
+EOF
