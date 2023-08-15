@@ -35,6 +35,17 @@ let
       sha256 = "1ild33hxiphj0z8b4kpcad4rai7q7jd0lsmhpa30kfgmyj5kh90z";
     };
   };
+  nvim-telescope = vimUtils.buildNeovimPluginFrom2Nix {
+    pname = "nvim-telescope";
+    version = "0.1.2";
+    src = fetchFromGitHub {
+      owner = "nvim-telescope";
+      repo = "telescope.nvim";
+      rev = "776b509f80dd49d8205b9b0d94485568236d1192";
+      sha256 = "sha256-fV3LLRwAPykVGc4ImOnUSP+WTrPp9Ad9OTfBJ6wqTMk=";
+    };
+    nativeBuildInputs = with pkgs; [ ripgrep ];
+  };
   # Tree sitter plugins.
   tree-sitter-astro =
     (callPackage <nixos/pkgs/development/tools/parsing/tree-sitter/grammar.nix>
@@ -73,6 +84,8 @@ in pkgs.neovim.override {
         nvim-lspconfig
         catppuccin-nvim
         my-nvim-treesitter
+        plenary-nvim 
+        nvim-telescope
       ];
     };
     customRC = builtins.readFile (./vimrc);
