@@ -120,6 +120,8 @@
     golangci-lint
     (callPackage ../../pkgs/golangci-lint-langserver {})
     dbeaver
+    pup
+    man-pages
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
