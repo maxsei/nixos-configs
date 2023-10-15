@@ -1,6 +1,6 @@
 # ...
-{ pkgs ? import <nixpkgs> { }, lib, callPackage, fetchFromGitHub, vimPlugins
-, vimUtils, ... }:
+{ neovim, vimPlugins, ripgrep, vimUtils, lib, callPackage, fetchFromGitHub, ...
+}:
 let
   # Custom vim plugins.
   nvim-lspconfig = vimPlugins.nvim-lspconfig.overrideAttrs (final: prev: {
@@ -14,7 +14,7 @@ let
       # rnix-lsp
     ];
   });
-  catppuccin-nvim = vimUtils.buildNeovimPluginFrom2Nix {
+  catppuccin-nvim = vimUtils.buildVimPluginFrom2Nix {
     pname = "catppuccin-nvim";
     version = "2022-09-29";
     src = fetchFromGitHub {
@@ -25,7 +25,7 @@ let
     };
     meta.homepage = "https://github.com/catppuccin/nvim/";
   };
-  vim-astro = vimUtils.buildNeovimPluginFrom2Nix {
+  vim-astro = vimUtils.buildVimPluginFrom2Nix {
     pname = "vim-astro";
     version = "2022-08-24";
     src = fetchFromGitHub {
@@ -35,7 +35,7 @@ let
       sha256 = "1ild33hxiphj0z8b4kpcad4rai7q7jd0lsmhpa30kfgmyj5kh90z";
     };
   };
-  nvim-telescope = vimUtils.buildNeovimPluginFrom2Nix {
+  nvim-telescope = vimUtils.buildVimPluginFrom2Nix {
     pname = "nvim-telescope";
     version = "0.1.2";
     src = fetchFromGitHub {
@@ -44,28 +44,12 @@ let
       rev = "776b509f80dd49d8205b9b0d94485568236d1192";
       sha256 = "sha256-fV3LLRwAPykVGc4ImOnUSP+WTrPp9Ad9OTfBJ6wqTMk=";
     };
-    nativeBuildInputs = with pkgs; [ ripgrep ];
+    nativeBuildInputs = [ ripgrep ];
   };
-  # Tree sitter plugins.
-  tree-sitter-astro =
-    (callPackage <nixos/pkgs/development/tools/parsing/tree-sitter/grammar.nix>
-      { } {
-        language = "astro";
-        version = pkgs.tree-sitter.version;
-        source = pkgs.fetchFromGitHub {
-          owner = "virchau13";
-          repo = "tree-sitter-astro";
-          rev = "a1f66bf72ed68b87f779bce9a52e5c6521fc867e";
-          sha256 = "155khx6zvhlilpzkd3pxlqki7bgjfx475mf33zran7h000jwxsa3";
-        };
-      });
-  # my-nvim-treesitter = pkgs.tree-sitter.withPlugins
-  my-nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins
-    (p: (builtins.attrValues p) ++ [ tree-sitter-astro ]);
-in pkgs.neovim.override {
+in neovim.override {
   vimAlias = true;
   configure = {
-    packages.myplugins = with pkgs.vimPlugins; {
+    packages.myplugins = with vimPlugins; {
       start = [
         zig-vim
         vim-nix
@@ -83,9 +67,9 @@ in pkgs.neovim.override {
         trouble-nvim
         nvim-lspconfig
         catppuccin-nvim
-        my-nvim-treesitter
-        plenary-nvim 
+        plenary-nvim
         nvim-telescope
+        nvim-treesitter
       ];
     };
     customRC = builtins.readFile (./vimrc);

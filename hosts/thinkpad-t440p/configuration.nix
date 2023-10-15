@@ -124,10 +124,13 @@
     man-pages
   ];
   # Unfree packages
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem ((import <nixpkgs> {}).lib.getName pkg) [
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "obsidian"
     "slack"
     "ngrok"
+  ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "python-2.7.18.6"
   ];
 
   # Environment variables
@@ -170,8 +173,7 @@
   services.flatpak.enable = true;
   # OpenSSH
   services.openssh.enable = true;
-  services.openssh.forwardX11 = true;
-  services.openssh.passwordAuthentication = false;
+  services.openssh.settings.PasswordAuthentication = false;
   # Gnome auxilary services
   services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
   services.udev.extraRules = ''

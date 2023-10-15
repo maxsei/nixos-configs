@@ -1,22 +1,21 @@
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.neovim-git.url = "github:neovim/neovim?dir=contrib";
+  description = "NixOS configuration";
 
-  outputs = inputs: {
-
-    nixosConfigurations.thinkpad-e15-gen2 = inputs.nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      # Things in this set are passed to modules and accessible
-      # in the top-level arguments (e.g. `{ pkgs, lib, inputs, ... }:`).
-      specialArgs = {
-        inherit inputs;
-      };
-      modules = [
-        ({ pkgs, ... }: {
-        })
-        ./configuration.nix
-      ];
-    };
-
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/release-23.05";
+    neovim-git.url = "github:neovim/neovim?dir=contrib";
+    flake-utils.url = "github:numtide/flake-utils";
   };
+
+  outputs = { self, nixpkgs, ... }@inputs:
+    let system = "x86_64-linux";
+    in {
+      nixosConfigurations = {
+        thinkpad-t440p = nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = [ ./hosts/thinkpad-t440p/configuration.nix ];
+        };
+      };
+    };
 }
