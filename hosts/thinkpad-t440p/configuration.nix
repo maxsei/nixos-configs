@@ -122,6 +122,7 @@
     dbeaver
     pup
     man-pages
+    gparted
   ];
   # Unfree packages
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
