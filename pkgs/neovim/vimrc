@@ -32,7 +32,6 @@
 "   - ultisnips                                                       282c8d63
 "   - fugitive                                                        e8aaa4aa
 "   - telescope                                                       c8cd0c97
-"   2437f54a-5776-45e8-b8c6-f3f360ea41b4
 " ============================================================================
 
 " 1. Vim                                                              856f0120
@@ -129,23 +128,8 @@ nmap <C-w><C-l> :vertical resize -5<CR>
 nmap <C-w><C-j> :resize +5<CR>
 nmap <C-w><C-k> :resize -5<CR>
 
-" toggle quickfix window                                              48add5de
-function! ToggleQuickfix()
-  if ( getqflist({'winid' : 1}).winid )
-    cclose
-  else
-		" open/populate quickfix list and return to original window.
-    let orgwin = win_getid()
-    lua vim.diagnostic.setqflist()
-		call win_gotoid(orgwin)
-		" go to previous error and then back to original position
-    let orgpos = getpos('.')
-    cabove
-    call setpos('.', orgpos)
-  endif
-endfunction
-command -bang -nargs=? ToggleQuickfix call ToggleQuickfix()
-nmap <leader>q :call ToggleQuickfix()<CR>
+" toggle trouble                                                     48add5de
+nmap <leader>q :TroubleToggle<CR>
 
 " system clipboard                                                    a882c5be
 vnoremap <silent> <Leader>y   "+ygv
