@@ -69,7 +69,11 @@ in neovim.override {
         catppuccin-nvim
         plenary-nvim
         nvim-telescope
-        nvim-treesitter
+        (nvim-treesitter.withPlugins (plugs:
+          # nvim-treesitter.allGrammars ++
+          # [plugs.zig] ++ 
+          (lib.attrValues (lib.filterAttrs (_: lib.isDerivation)
+            (callPackage ./treesitter-grammars.nix { })))))
       ];
     };
     customRC = builtins.readFile (./vimrc);
