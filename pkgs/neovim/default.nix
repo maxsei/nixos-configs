@@ -52,6 +52,7 @@ in neovim.override {
     packages.myplugins = with vimPlugins; {
       start = [
         zig-vim
+        vim-terraform
         vim-nix
         vim-graphql
         vim-svelte
