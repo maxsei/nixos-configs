@@ -26,6 +26,15 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console.font = "Lat2-Terminus16";
 
+  # Fonts
+  fonts = {
+    enableDefaultFonts = true;
+    fonts = with pkgs; [
+      (callPackage ../../pkgs/astigmata {} )
+    ];
+    fontconfig.defaultFonts.monospace = [ "Astigmata" ];
+  };
+
   # Bluetooth
   hardware.bluetooth.enable = true;
 
