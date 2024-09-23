@@ -5,15 +5,15 @@ pkgs.symlinkJoin {
   buildInputs = [ pkgs.makeWrapper ];
   postBuild = ''
     mkdir -p $out/etc
-    cp ${./alacritty.yml} $out/etc/alacritty.yml
-    cp ${./catppuccin-machiato.yml} $out/etc/catppuccin-machiato.yml
+    cp ${./alacritty.toml} $out/etc/alacritty.toml
+    cp ${./catppuccin-machiato.toml} $out/etc/catppuccin-machiato.toml
 
-    substituteInPlace $out/etc/alacritty.yml \
-      --replace "./catppuccin-mocha.yml" "$out/etc/catppuccin-mocha.yml"
+    substituteInPlace $out/etc/alacritty.toml \
+      --replace "./catppuccin-mocha.toml" "$out/etc/catppuccin-mocha.toml"
 
 
     wrapProgram $out/bin/alacritty \
       --set WAYLAND_DISPLAY "" \
-      --add-flags "--config-file $out/etc/alacritty.yml"
+      --add-flags "--config-file $out/etc/alacritty.toml"
   '';
 }

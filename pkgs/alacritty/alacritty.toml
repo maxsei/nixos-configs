@@ -1,0 +1,95 @@
+dynamic_title = false
+live_config_reload = true
+import = [ "./catppuccin-mocha.yml" ]
+
+[env]
+TERM = "alacritty"
+
+[window]
+columns = 120
+lines = 80
+opacity = 0.82
+startup_mode = "Maximized"
+
+  [window.padding]
+  x = 6
+  y = 6
+
+[font]
+size = 13
+
+  [font.normal]
+  family = "monospace"
+
+  [font.bold]
+  family = "monospace"
+
+  [font.italic]
+  family = "monospace"
+
+  [font.bold_italic]
+  family = "monospace"
+
+[selection]
+save_to_clipboard = false
+
+[cursor]
+style = "Block"
+unfocused_hollow = true
+
+[mouse]
+hide_when_typing = false
+
+[mouse.hints.launcher]
+program = "xdg-open"
+
+[[key_bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"
+
+[[key_bindings]]
+key = "V"
+mods = "Control|Shift"
+action = "Paste"
+
+[[key_bindings]]
+key = "Insert"
+mods = "Shift"
+action = "PasteSelection"
+
+[[key_bindings]]
+key = "Key0"
+mods = "Control"
+action = "ResetFontSize"
+
+[[key_bindings]]
+key = "K"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[key_bindings]]
+key = "J"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[key_bindings]]
+key = "Equals"
+mods = "Control"
+action = "None"
+
+[[key_bindings]]
+key = "Plus"
+mods = "Control"
+action = "None"
+
+[[key_bindings]]
+key = "Minus"
+mods = "Control"
+action = "None"
+
+[[key_bindings]]
+key = "Slash"
+mods = "Control"
+mode = "~Search"
+action = "ToggleViMode"
