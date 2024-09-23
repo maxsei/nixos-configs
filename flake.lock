@@ -36,6 +36,26 @@
         "type": "github"
       }
     },
+    "home-manager": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1721852138,
+        "narHash": "sha256-JH8N5uoqoVA6erV4O40VtKKHsnfmhvMGbxMNDLtim5o=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "304a011325b7ac7b8c9950333cd215a7aa146b0e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
     "neovim-git": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -75,16 +95,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1696177401,
-        "narHash": "sha256-xSVZ+arFlQqWIArSGBA2wSyKHy9SRnIvkAHhDiMsT7o=",
+        "lastModified": 1726854234,
+        "narHash": "sha256-u8SV9njoVIzxowg67rA3IrbSfgNGqCccjJWsg47FEmc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "fcf981a219ef7b910c83871ba202a883cbf7b3d6",
+        "rev": "35803f4e10a99c25420710d2d4efed006b72fa24",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "release-23.05",
+        "ref": "release-24.05",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -92,6 +112,7 @@
     "root": {
       "inputs": {
         "flake-utils": "flake-utils",
+        "home-manager": "home-manager",
         "neovim-git": "neovim-git",
         "nixpkgs": "nixpkgs_2"
       }

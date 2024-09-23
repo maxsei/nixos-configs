@@ -1,7 +1,12 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   # Imports
   # imports i.e. nixos module injection (things that modify system
@@ -28,20 +33,20 @@
 
   # Fonts
   fonts = {
-    enableDefaultFonts = true;
-    fonts = with pkgs; [
-      (callPackage ../../pkgs/astigmata {} )
-    ];
-    fontconfig.defaultFonts.monospace = [ "Astigmata" ];
+    enableDefaultPackages = true;
+    packages = with pkgs; [ (nerdfonts.override { fonts = [ "Inconsolata" ]; }) ];
+    fontconfig.defaultFonts.monospace = [ "Inconsolata" ];
+    fontconfig.defaultFonts.sansSerif = [ "Fixedsys" ];
   };
 
   # Bluetooth
   hardware.bluetooth.enable = true;
+  hardware.bluetooth.disabledPlugins = [ "sap" ];
 
   # Security
   security.pam.enableEcryptfs = true;
   security.auditd.enable = true;
-  security.audit.rules = []; # "-a exit,always -F arch=b64 -S execve"
+  security.audit.rules = [ ]; # "-a exit,always -F arch=b64 -S execve"
   security.sudo.wheelNeedsPassword = false;
 
   # Users.
@@ -60,18 +65,17 @@
       "adbusers"
     ];
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
   };
-
 
   # System Packages
   environment.systemPackages = with pkgs; [
     wget
     curl
     python
-    python38
+    python311
     go
-    (callPackage ../../pkgs/neovim {inherit pkgs;})
+    (callPackage ../../pkgs/neovim { inherit pkgs; })
     lf
     git
     docker
@@ -102,12 +106,12 @@
     qrcp
     unzip
     zip
-    (callPackage ../../pkgs/signal-desktop {})
+    (callPackage ../../pkgs/signal-desktop { })
     scc
     ffmpeg
     gnumake
     meld
-    nixfmt
+    nixfmt-rfc-style
     patchelf
     pkg-config
     clang
@@ -116,7 +120,7 @@
     zig
     zls
     nodePackages.svelte-language-server
-    (callPackage ../../pkgs/alacritty {})
+    (callPackage ../../pkgs/alacritty { })
     nodejs
     wireshark
     nmap
@@ -127,20 +131,21 @@
     gopls
     file
     golangci-lint
-    (callPackage ../../pkgs/golangci-lint-langserver {})
-    dbeaver
+    dbeaver-bin
     pup
     man-pages
     gparted
-  ];
-  # Unfree packages
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "obsidian"
-    "slack"
-    "ngrok"
-  ];
-  nixpkgs.config.permittedInsecurePackages = [
-    "python-2.7.18.6"
+    yarn
+    obs-studio
+    qt5.qtwayland # XXX: need to test to see if we need this for obs
+    duckdb
+    python311Packages.python-lsp-server
+    binwalk
+    binocle
+    gnome-network-displays
+    google-chrome
+    git-lfs
+    nodePackages.typescript-language-server
   ];
 
   # Environment variables
@@ -149,13 +154,11 @@
       EDITOR = "nvim";
     };
     sessionVariables = rec {
-      XDG_CACHE_HOME  = "\${HOME}/.cache";
+      XDG_CACHE_HOME = "\${HOME}/.cache";
       XDG_CONFIG_HOME = "\${HOME}/.config";
-      XDG_BIN_HOME    = "\${HOME}/.local/bin";
-      XDG_DATA_HOME   = "\${HOME}/.local/share";
-      PATH = [
-        "\${XDG_BIN_HOME}"
-      ];
+      XDG_BIN_HOME = "\${HOME}/.local/bin";
+      XDG_DATA_HOME = "\${HOME}/.local/share";
+      PATH = [ "\${XDG_BIN_HOME}" ];
     };
   };
 
@@ -163,7 +166,6 @@
   programs.mtr.enable = true;
   programs.dconf.enable = true;
   programs.adb.enable = true;
-
 
   # Services (https://nixos.wiki/wiki/NixOS_modules)
   # XServer configuation.
@@ -173,13 +175,13 @@
   # wtf why is this shit software even on my system it leaks memory like a mf
   services.packagekit.enable = true;
   services.xserver.dpi = 96;
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "caps:escape";
+  services.xserver.xkb.layout = "us";
+  services.xserver.xkb.options = "caps:escape";
   # Touchpad
-  services.xserver.libinput.enable = true;
-  services.xserver.libinput.touchpad.tapping = true;
-  services.xserver.libinput.touchpad.naturalScrolling = false;
-  services.xserver.libinput.mouse.naturalScrolling = false;
+  services.libinput.enable = true;
+  services.libinput.touchpad.tapping = true;
+  services.libinput.touchpad.naturalScrolling = false;
+  services.libinput.mouse.naturalScrolling = false;
   services.flatpak.enable = true;
   # OpenSSH
   services.openssh.enable = true;
@@ -236,16 +238,18 @@
   # TODO: declarative configuration https://nixos.wiki/wiki/Syncthing
   services.syncthing.enable = true;
   services.syncthing.user = "mschulte";
-  services.syncthing.configDir = "/home/mschulte/.config/syncthing";   # Folder for Syncthing's settings and keys
+  services.syncthing.configDir = "/home/mschulte/.config/syncthing"; # Folder for Syncthing's settings and keys
   # MTP
   services.gvfs.enable = true;
-
 
   # Virtualisation
   virtualisation.docker.enable = true;
 
   # Enable use of "nix-command"s.
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Nixos 22.05
   system.autoUpgrade.channel = "https://channels.nixos.org/nixos-22.05";

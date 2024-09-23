@@ -16,6 +16,9 @@
       repo_path="$(echo "$d" | perl -nle '$x = $2 if (/(git@|https:\/\/)(.*?)(.git$|$)/); $x =~ s/:/\//; print $x')"
       git clone $d ~/Documents/repos/$repo_path
     } <<<'';
+    devlog = ''
+      $EDITOR "$HOME/Documents/devlog/$(date +%Y-%m-%d).md"
+    '';
   };
   programs.bash.vteIntegration = true;
   programs.bash.interactiveShellInit = builtins.readFile (./bashrc);

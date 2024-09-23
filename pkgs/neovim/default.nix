@@ -14,7 +14,7 @@ let
       # rnix-lsp
     ];
   });
-  catppuccin-nvim = vimUtils.buildVimPluginFrom2Nix {
+  catppuccin-nvim = vimUtils.buildVimPlugin {
     pname = "catppuccin-nvim";
     version = "2022-09-29";
     src = fetchFromGitHub {
@@ -25,7 +25,7 @@ let
     };
     meta.homepage = "https://github.com/catppuccin/nvim/";
   };
-  vim-astro = vimUtils.buildVimPluginFrom2Nix {
+  vim-astro = vimUtils.buildVimPlugin {
     pname = "vim-astro";
     version = "2022-08-24";
     src = fetchFromGitHub {
@@ -35,7 +35,7 @@ let
       sha256 = "1ild33hxiphj0z8b4kpcad4rai7q7jd0lsmhpa30kfgmyj5kh90z";
     };
   };
-  nvim-telescope = vimUtils.buildVimPluginFrom2Nix {
+  nvim-telescope = vimUtils.buildVimPlugin {
     pname = "nvim-telescope";
     version = "0.1.2";
     src = fetchFromGitHub {
@@ -71,6 +71,7 @@ in neovim.override {
         plenary-nvim
         nvim-telescope
         nvim-treesitter
+        ChatGPT-nvim
       ];
     };
     customRC = builtins.readFile (./vimrc);
