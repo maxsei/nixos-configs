@@ -1,4 +1,3 @@
-dynamic_title = false
 live_config_reload = true
 import = [ "./catppuccin-mocha.yml" ]
 
@@ -6,8 +5,7 @@ import = [ "./catppuccin-mocha.yml" ]
 TERM = "alacritty"
 
 [window]
-columns = 120
-lines = 80
+dimensions = { columns = 120, lines = 80 }
 opacity = 0.82
 startup_mode = "Maximized"
 
@@ -40,55 +38,52 @@ unfocused_hollow = true
 [mouse]
 hide_when_typing = false
 
-[mouse.hints.launcher]
-program = "xdg-open"
-
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "C"
 mods = "Control|Shift"
 action = "Copy"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "V"
 mods = "Control|Shift"
 action = "Paste"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "Insert"
 mods = "Shift"
 action = "PasteSelection"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "Key0"
 mods = "Control"
 action = "ResetFontSize"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "K"
 mods = "Control"
 action = "IncreaseFontSize"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "J"
 mods = "Control"
 action = "DecreaseFontSize"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "Equals"
 mods = "Control"
 action = "None"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "Plus"
 mods = "Control"
 action = "None"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "Minus"
 mods = "Control"
 action = "None"
 
-[[key_bindings]]
+[[keyboard.bindings]]
 key = "Slash"
 mods = "Control"
 mode = "~Search"
