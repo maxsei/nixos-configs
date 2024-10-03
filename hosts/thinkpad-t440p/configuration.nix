@@ -146,6 +146,11 @@
     google-chrome
     git-lfs
     nodePackages.typescript-language-server
+    rust-analyzer
+    (pkgs.rust-bin.stable."1.78.0".default.override {
+      extensions = [ "rust-src" ];
+      targets = [ "wasm32-wasip1" ];
+    })
   ];
 
   # Environment variables

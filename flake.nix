@@ -6,12 +6,24 @@
   inputs.flake-utils.url = "github:numtide/flake-utils";
   inputs.home-manager.url = "github:nix-community/home-manager";
   inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+  inputs.rust-overlay = {
+    url = "github:oxalica/rust-overlay";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      rust-overlay,
+      ...
+    }@inputs:
     let
       system = "x86_64-linux";
       lib = nixpkgs.lib;
-    in {
+    in
+    {
       nixosConfigurations = {
         thinkpad-t440p = nixpkgs.lib.nixosSystem {
           inherit system;
@@ -21,8 +33,12 @@
               # home-manager.overlays.default
             ];
             config = {
-              permittedInsecurePackages = [ "python-2.7.18.8" "electron-24.8.6" ];
-              allowUnfreePredicate = pkg:
+              permittedInsecurePackages = [
+                "python-2.7.18.8"
+                "electron-24.8.6"
+              ];
+              allowUnfreePredicate =
+                pkg:
                 builtins.elem (lib.getName pkg) [
                   "obsidian"
                   "slack"
@@ -32,7 +48,15 @@
             };
           };
           # specialArgs = { inherit inputs; };
-          modules = [ ./hosts/thinkpad-t440p/configuration.nix ];
+          modules = [
+            (
+              { pkgs, ... }:
+              {
+                nixpkgs.overlays = [ rust-overlay.overlays.default ];
+              }
+            )
+            ./hosts/thinkpad-t440p/configuration.nix
+          ];
         };
       };
     };

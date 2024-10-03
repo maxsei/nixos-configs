@@ -1,6 +1,7 @@
 # ...
 { neovim, vimPlugins, ripgrep, vimUtils, lib, callPackage, fetchFromGitHub, ...
 }:
+# TODO: make this a nixos module instead of a package <02-10-24, Max Schulte> #
 let
   # Custom vim plugins.
   nvim-lspconfig = vimPlugins.nvim-lspconfig.overrideAttrs (final: prev: {
