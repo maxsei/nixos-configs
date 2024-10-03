@@ -328,6 +328,18 @@ nvim_lsp['diagnosticls'].setup{
 
 -- Nix.
 nvim_lsp['rnix'].setup {}
+
+-- Rust.
+nvim_lsp['rust_analyzer'].setup{
+  settings = {
+    ['rust-analyzer'] = {
+      diagnostics = {
+        enable = false;
+      }
+    }
+  }
+}
+
 EOF
 
 " Try and find the definition of the thing if not then find the typedef.
