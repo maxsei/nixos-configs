@@ -151,6 +151,7 @@
       extensions = [ "rust-src" ];
       targets = [ "wasm32-wasip1" ];
     })
+    aider-chat
   ];
 
   # Environment variables
@@ -228,13 +229,12 @@
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
   hardware.pulseaudio.enable = false;
-  sound.enable = true;
-  # OpenGL
-  hardware.opengl.enable = true;
+  # Graphics
+  hardware.graphics.enable = true;
   environment.variables = {
-    VDPAU_DRIVER = lib.mkIf config.hardware.opengl.enable (lib.mkDefault "va_gl");
+    VDPAU_DRIVER = lib.mkIf config.hardware.graphics.enable (lib.mkDefault "va_gl");
   };
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     vaapiIntel
     libvdpau-va-gl
     intel-media-driver
