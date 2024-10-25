@@ -189,6 +189,7 @@
   services.libinput.touchpad.naturalScrolling = false;
   services.libinput.mouse.naturalScrolling = false;
   services.flatpak.enable = true;
+  services.unclutter.enable = true;
   # OpenSSH
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
@@ -258,6 +259,9 @@
 
   # Nixos 22.05
   system.autoUpgrade.channel = "https://channels.nixos.org/nixos-22.05";
+
+  # Since Nixos 24.05 we will allow nix-ld
+  services.nix-ld.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
