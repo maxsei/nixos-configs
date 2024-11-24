@@ -152,6 +152,7 @@
       targets = [ "wasm32-wasip1" ];
     })
     aider-chat
+    wasmtime
   ];
 
   # Environment variables
@@ -261,7 +262,7 @@
   system.autoUpgrade.channel = "https://channels.nixos.org/nixos-22.05";
 
   # Since Nixos 24.05 we will allow nix-ld
-  services.nix-ld.enable = true;
+  programs.nix-ld.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
