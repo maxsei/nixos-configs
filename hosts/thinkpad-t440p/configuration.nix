@@ -153,6 +153,7 @@
     })
     aider-chat
     wasmtime
+    (pkgs.callPackage ../../pkgs/slippi-launcher { })
   ];
 
   # Environment variables
