@@ -15,17 +15,6 @@ let
       # rnix-lsp
     ];
   });
-  catppuccin-nvim = vimUtils.buildVimPlugin {
-    pname = "catppuccin-nvim";
-    version = "2022-09-29";
-    src = fetchFromGitHub {
-      owner = "catppuccin";
-      repo = "nvim";
-      rev = "v0.2.3";
-      sha256 = "08n78bj1b6japw6lzalin157m6c6bayky2d8vg3w3my5lfnj6d7y";
-    };
-    meta.homepage = "https://github.com/catppuccin/nvim/";
-  };
   vim-astro = vimUtils.buildVimPlugin {
     pname = "vim-astro";
     version = "2022-08-24";
@@ -35,17 +24,6 @@ let
       rev = "34732be5e9a5c28c2409f4490edf92d46d8b55a9";
       sha256 = "1ild33hxiphj0z8b4kpcad4rai7q7jd0lsmhpa30kfgmyj5kh90z";
     };
-  };
-  nvim-telescope = vimUtils.buildVimPlugin {
-    pname = "nvim-telescope";
-    version = "0.1.2";
-    src = fetchFromGitHub {
-      owner = "nvim-telescope";
-      repo = "telescope.nvim";
-      rev = "776b509f80dd49d8205b9b0d94485568236d1192";
-      sha256 = "sha256-fV3LLRwAPykVGc4ImOnUSP+WTrPp9Ad9OTfBJ6wqTMk=";
-    };
-    nativeBuildInputs = [ ripgrep ];
   };
 in neovim.override {
   vimAlias = true;
@@ -62,6 +40,7 @@ in neovim.override {
         vim-snippets
         vim-fugitive
         nvim-autopairs
+        telescope-nvim
         # surround-nvim
         vim-commentary
         deoplete-nvim
@@ -70,7 +49,6 @@ in neovim.override {
         nvim-lspconfig
         catppuccin-nvim
         plenary-nvim
-        nvim-telescope
         nvim-treesitter
         ChatGPT-nvim
       ];

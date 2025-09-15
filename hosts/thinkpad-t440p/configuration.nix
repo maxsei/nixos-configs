@@ -34,7 +34,7 @@
   # Fonts
   fonts = {
     enableDefaultPackages = true;
-    packages = with pkgs; [ (nerdfonts.override { fonts = [ "Inconsolata" ]; }) ];
+    packages = with pkgs; [ pkgs.nerd-fonts.inconsolata ];
     fontconfig.defaultFonts.monospace = [ "Inconsolata" ];
     fontconfig.defaultFonts.sansSerif = [ "Fixedsys" ];
   };
@@ -81,8 +81,7 @@
     docker
     docker-compose
     ecryptfs
-    ecryptfs-helper
-    firefox-bin
+    librewolf
     xclip
     gcc
     xclip
@@ -102,7 +101,7 @@
     android-udev-rules
     vlc
     ngrok
-    python39Packages.qrcode # qr
+    python311Packages.qrcode # qr
     qrcp
     unzip
     zip
@@ -139,7 +138,6 @@
     obs-studio
     qt5.qtwayland # XXX: need to test to see if we need this for obs
     duckdb
-    python311Packages.python-lsp-server
     binwalk
     binocle
     gnome-network-displays
@@ -178,8 +176,8 @@
   # Services (https://nixos.wiki/wiki/NixOS_modules)
   # XServer configuation.
   services.xserver.enable = true;
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
   # wtf why is this shit software even on my system it leaks memory like a mf
   services.packagekit.enable = true;
   services.xserver.dpi = 96;
@@ -229,7 +227,7 @@
   services.pipewire.alsa.support32Bit = true;
   services.pipewire.pulse.enable = true;
   services.pipewire.jack.enable = true;
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   # Graphics
   hardware.graphics.enable = true;
   environment.variables = {
@@ -248,8 +246,8 @@
   # MTP
   services.gvfs.enable = true;
 
-  services.logind.lidSwitchDocked = "suspend";
-  services.logind.lidSwitchExternalPower = "lock";
+  services.logind.settings.Login.HandleLidSwitchDocked = "suspend";
+  services.logind.settings.Login.HandleLidSwitchExternalPower = "lock";
   # XXX: This is a crazy hack to prevent gnome from controlling power.
   systemd.services.disable-gsd-power-for-lid = {
     description = "Disable systemd inhibition for gsd power for lid";
