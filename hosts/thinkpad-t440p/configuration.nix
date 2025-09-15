@@ -195,8 +195,6 @@
   # OpenSSH
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
-  # Gnome auxilary services
-  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
   services.udev.extraRules = ''
     # Allows members of the wireshark group to access the usbmon device
     SUBSYSTEM=="usbmon", GROUP="wireshark", MODE="0640"
@@ -249,6 +247,37 @@
   services.syncthing.configDir = "/home/mschulte/.config/syncthing"; # Folder for Syncthing's settings and keys
   # MTP
   services.gvfs.enable = true;
+
+  services.logind.lidSwitchDocked = "suspend";
+  services.logind.lidSwitchExternalPower = "lock";
+  # XXX: This is a crazy hack to prevent gnome from controlling power.
+  systemd.services.disable-gsd-power-for-lid = {
+    description = "Disable systemd inhibition for gsd power for lid";
+    after = [ "graphical-session.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = let script = "";
+    in {
+      Type = "oneshot";
+      User = "mschulte";
+      ExecStart = "${pkgs.writeScript "disable-lid-switch" ''
+        #!${pkgs.bash}/bin/bash
+
+        set -eo pipefail
+
+        # Kill existing lid-switch inhibitions
+        ${pkgs.systemd}/bin/systemd-inhibit --list \
+          | ${pkgs.gawk}/bin/awk '{ if (($6 == "handle-lid-switch") && ($5 == ".gsd-power-wrap")) { print $4 } }' \
+          | ${pkgs.findutils}/bin/xargs -r ${pkgs.util-linux}/bin/kill
+
+      ''}";
+        # # Disable the inhibition for GNOME's power handling for lid
+        # ${pkgs.systemd}/bin/systemd-inhibit \
+        #   --what=sleep \
+        #   --why='GNOME needs to lock the screen' \
+        #   --mode=delay ${pkgs.gnome-settings-daemon}/libexec/gsd-power
+      RemainAfterExit = true;
+    };
+  };
 
   # Virtualisation
   virtualisation.docker.enable = true;
