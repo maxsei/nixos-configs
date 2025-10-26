@@ -50,7 +50,6 @@
       in
       {
         packages = {
-
           nixosConfigurations = {
             thinkpad-t440p = nixpkgs.lib.nixosSystem {
               inherit system pkgs;
@@ -64,9 +63,14 @@
                 ./hosts/thinkpad-t440p/configuration.nix
               ];
             };
+            home-server = nixpkgs.lib.nixosSystem {
+              inherit system pkgs;
+              modules = [
+                ./hosts/home-server/configuration.nix
+              ];
+            };
           };
         };
-
       }
     );
 }
