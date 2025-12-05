@@ -109,7 +109,8 @@
     tealdeer
     feh
     dasel
-    android-udev-rules
+    # TODO: error: 'android-udev-rules' has been removed due to being superseded by built-in systemd uaccess rules.
+    # android-udev-rules
     vlc
     ngrok
     python311Packages.qrcode # qr
@@ -152,7 +153,7 @@
     binwalk
     binocle
     gnome-network-displays
-    google-chrome
+    ungoogled-chromium
     git-lfs
     nodePackages.typescript-language-server
     rust-analyzer

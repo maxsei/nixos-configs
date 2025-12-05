@@ -11,6 +11,10 @@
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -20,6 +24,7 @@
       home-manager,
       rust-overlay,
       flake-utils,
+      sops-nix,
       ...
     }@inputs:
     flake-utils.lib.eachDefaultSystem (
@@ -34,7 +39,8 @@
           ];
           config = {
             permittedInsecurePackages = [
-              "python-2.7.18.8"
+              "python-2.7.18.12"
+              # "python-2.7.18.8"
               "electron-24.8.6"
             ];
             allowUnfreePredicate =
@@ -43,7 +49,6 @@
                 "obsidian"
                 "slack"
                 "ngrok"
-                "google-chrome"
               ];
           };
         };
@@ -66,6 +71,7 @@
             home-server = nixpkgs.lib.nixosSystem {
               inherit system pkgs;
               modules = [
+                sops-nix.nixosModules.sops
                 ./hosts/home-server/configuration.nix
               ];
             };
