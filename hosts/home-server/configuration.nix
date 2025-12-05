@@ -34,21 +34,24 @@
       prefixLength = 16;
     }
   ];
+  networking.interfaces.wlp0s29u1u3.ipv4.addresses = [
+    {
+      address = "192.168.0.2";
+      prefixLength = 24;
+    }
+  ];
   networking.dhcpcd.denyInterfaces = [ "enp4s0" ];
 
   sops.secrets."network-secrets-file" = { };
   networking.wireless.secretsFile = config.sops.secrets."network-secrets-file".path;
   networking.wireless.enable = true;
   networking.networkmanager.enable = false;
-
-  networking.wireless.interfaces = [ "wlp0s29u1u3" ];
-  networking.interfaces.wlp0s29u1u3.useDHCP = true;
-
   networking.wireless.networks = {
     ThatAintMyBabyDaddy2 = {
-      pskRaw = ext:that-aint-my-baby-daddy2;
+      pskRaw = "ext:that-aint-my-baby-daddy2";
     };
   };
+  networking.interfaces.wlp0s29u1u3.useDHCP = false;
 
   # Dynamic DNS.
   sops.secrets."freedns-password" = {
