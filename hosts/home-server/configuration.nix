@@ -46,7 +46,7 @@
 
   networking.wireless.networks = {
     ThatAintMyBabyDaddy2 = {
-      pskRaw = ext:that-aint-my-baby-daddy2;
+      pskRaw = "ext:that-aint-my-baby-daddy2";
     };
   };
 
@@ -64,6 +64,22 @@
       };
     };
   };
+
+  # Open VPN
+  sops.secrets.openvpn-configuration = {
+    # TODO: scope this to a user
+    # owner = config.systemd.services.openvpn.serviceConfig.User;
+  };
+  services.openvpn.servers.home-server = {
+    config = "config ${config.sops.secrets.openvpn-configuration.path}";
+    updateResolvConf = true;
+  };
+
+  services.nginx.enable = true;
+  services.nginx.virtualHosts."localhost" = {
+    root = pkgs.writeTextDir "index.html" "Hello World!";
+  };
+  networking.firewall.allowedTCPPorts = [ 80 ];
 
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
