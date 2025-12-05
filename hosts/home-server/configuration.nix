@@ -18,6 +18,9 @@
 
   time.timeZone = "America/Chicago";
 
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  sops.defaultSopsFile = ./secrets.yaml;
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -25,7 +28,6 @@
   };
 
   networking.firewall.enable = true;
-  networking.networkmanager.enable = true;
   networking.interfaces.enp4s0.ipv4.addresses = [
     {
       address = "169.254.55.155";
@@ -33,13 +35,35 @@
     }
   ];
   networking.dhcpcd.denyInterfaces = [ "enp4s0" ];
-  # TODO: sops + wpa_supplicant
-  # networking.wireless.networks = {
-  #   "ThatAintMyBabyDaddy2" = {
-  #     bssid = "";
-  #     psk = "";
-  #   };
-  # };
+
+  sops.secrets."network-secrets-file" = { };
+  networking.wireless.secretsFile = config.sops.secrets."network-secrets-file".path;
+  networking.wireless.enable = true;
+  networking.networkmanager.enable = false;
+
+  networking.wireless.interfaces = [ "wlp0s29u1u3" ];
+  networking.interfaces.wlp0s29u1u3.useDHCP = true;
+
+  networking.wireless.networks = {
+    ThatAintMyBabyDaddy2 = {
+      pskRaw = ext:that-aint-my-baby-daddy2;
+    };
+  };
+
+  # Dynamic DNS.
+  sops.secrets."freedns-password" = {
+    owner = config.systemd.services.inadyn.serviceConfig.User;
+  };
+  services.inadyn = {
+    enable = true;
+    settings = {
+      provider."freedns.afraid.org" = {
+        username = "maxsei";
+        hostname = "maxsei.chickenkiller.com";
+        include = config.sops.secrets."freedns-password".path;
+      };
+    };
+  };
 
   services.openssh.enable = true;
   services.openssh.openFirewall = true;
