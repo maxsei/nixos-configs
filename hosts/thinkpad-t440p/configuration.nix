@@ -92,7 +92,6 @@
     docker
     docker-compose
     ecryptfs
-    librewolf
     xclip
     gcc
     xclip
