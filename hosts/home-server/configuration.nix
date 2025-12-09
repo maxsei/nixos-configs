@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     (modulesPath + "/profiles/headless.nix")
     (modulesPath + "/profiles/minimal.nix")
+    ./openvpn.nix
   ];
 
   boot.loader.systemd-boot.enable = true;
@@ -34,6 +35,14 @@
       prefixLength = 16;
     }
   ];
+  networking.interfaces.wlp0s29u1u3.ipv4.addresses = [
+    {
+      address = "192.168.0.2";
+      prefixLength = 24;
+    }
+  ];
+  networking.defaultGateway = "192.168.0.1";
+
   networking.dhcpcd.denyInterfaces = [ "enp4s0" ];
 
   sops.secrets."network-secrets-file" = { };
@@ -42,7 +51,7 @@
   networking.networkmanager.enable = false;
 
   networking.wireless.interfaces = [ "wlp0s29u1u3" ];
-  networking.interfaces.wlp0s29u1u3.useDHCP = true;
+  networking.interfaces.wlp0s29u1u3.useDHCP = false;
 
   networking.wireless.networks = {
     ThatAintMyBabyDaddy2 = {
@@ -63,16 +72,6 @@
         include = config.sops.secrets."freedns-password".path;
       };
     };
-  };
-
-  # Open VPN
-  sops.secrets.openvpn-configuration = {
-    # TODO: scope this to a user
-    # owner = config.systemd.services.openvpn.serviceConfig.User;
-  };
-  services.openvpn.servers.home-server = {
-    config = "config ${config.sops.secrets.openvpn-configuration.path}";
-    updateResolvConf = true;
   };
 
   services.nginx.enable = true;
