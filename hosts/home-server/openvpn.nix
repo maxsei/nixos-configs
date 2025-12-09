@@ -10,6 +10,7 @@ let
   vpnMask = "255.255.255.0";
   vpnDevice = "tun0";
   vpnPort = 1194;
+  vpnName = "server";
 in
 
 {
@@ -24,14 +25,12 @@ in
   ];
   networking.firewall.trustedInterfaces = [ vpnDevice ];
 
-  sops.secrets."openvpn/servers/server/secret" = { };
-
-  services.openvpn.servers.server = {
+  services.openvpn.servers.${vpnName} = {
     config = ''
       dev ${vpnDevice}
       proto udp
       ifconfig 10.8.0.1 10.8.0.2
-      secret ${config.sops.secrets."openvpn/servers/server/secret".path}
+      secret /etc/openvpn/${vpnName}/secret.key
       port ${toString vpnPort}
 
       cipher AES-256-CBC
@@ -72,7 +71,7 @@ in
       <secret>
       EOF
 
-      cat ${config.sops.secrets."openvpn/servers/server/secret".path}
+      cat /etc/openvpn/${vpnName}/secret.key
 
       cat << EOF
       </secret>
@@ -80,6 +79,17 @@ in
     '')
   ];
 
+  systemd.tmpfiles.rules = [
+    "d /etc/openvpn/${vpnName} 0750 root root - -"
+  ];
+  system.activationScripts."openvpn-${vpnName}-generate-key" = ''
+    f="/etc/openvpn/${vpnName}/secret.key"
+    if [ ! -e "$f" ]; then
+      ${pkgs.openvpn}/bin/openvpn --genkey --secret "$f"
+      chmod 600 "$f"
+      chown root:root "$f"
+    fi
+  '';
 
   services.dnsmasq = {
     enable = true;
