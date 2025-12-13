@@ -65,6 +65,7 @@
                     nixpkgs.overlays = [ rust-overlay.overlays.default ];
                   }
                 )
+                sops-nix.nixosModules.sops
                 ./hosts/thinkpad-t440p/configuration.nix
               ];
             };
