@@ -304,6 +304,18 @@
   # Since Nixos 24.05 we will allow nix-ld
   programs.nix-ld.enable = true;
 
+
+  sops.age.sshKeyPaths = [ "/home/mschulte/.ssh/maxsei-homecloud" ];
+  sops.defaultSopsFile = ./secrets.yaml;
+  sops.secrets."home-server.opvpn" = {
+    owner = "mschulte";
+  };
+  services.openvpn.servers.home-server  = {
+    config = ''config ${config.sops.secrets."home-server.opvpn".path}'';
+    updateResolvConf = true;
+  };
+
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
