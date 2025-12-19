@@ -164,6 +164,7 @@
     wasmtime
     (pkgs.callPackage ../../pkgs/slippi-launcher { })
     bun
+    imagemagick
   ];
 
   # Environment variables
