@@ -5,6 +5,6 @@
 callPackage ./generic.nix {
   pname = "signal-desktop";
   dir = "Signal";
-  version = "7.81.0";
-  hash = "sha256-wvZdpIJAzU0M57lMI0U5UuZ5lK4Pnc13xQSHhUownHg=";
+  version = "7.83.0";
+  hash = "sha256-XXAh1Ga+A69full6xbbA5dZvHkXtLePel5ygYWYcV8I=";
 }
