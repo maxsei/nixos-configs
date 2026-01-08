@@ -227,7 +227,7 @@
   #   allowedUDPPorts = [ 67 69 4011 ];
   # };
   # Nameservers
-  networking.nameservers = [ "8.8.8.8" ];
+  networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
   # networking.macvlans = {
   #   wan = {
   #     interface = "wlp3s0";
