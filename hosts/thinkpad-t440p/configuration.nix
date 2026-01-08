@@ -81,6 +81,7 @@
 
   # System Packages
   environment.systemPackages = with pkgs; [
+    dig
     wget
     curl
     python
@@ -315,7 +316,6 @@
     config = ''config ${config.sops.secrets."home-server.opvpn".path}'';
     updateResolvConf = true;
   };
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
