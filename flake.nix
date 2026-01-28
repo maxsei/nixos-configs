@@ -49,6 +49,7 @@
                 "obsidian"
                 "slack"
                 "ngrok"
+                "claude-code"
               ];
           };
         };

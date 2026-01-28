@@ -166,6 +166,16 @@
     (pkgs.callPackage ../../pkgs/slippi-launcher { })
     bun
     imagemagick
+    arp-scan
+    litecli
+    claude-code
+    entr
+    jq
+    yq
+    minicom
+    pstree
+    tree
+    usbutils
   ];
 
   # Environment variables
