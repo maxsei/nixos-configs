@@ -176,6 +176,7 @@
     pstree
     tree
     usbutils
+    htop
   ];
 
   # Environment variables
