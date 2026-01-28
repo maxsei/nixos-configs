@@ -399,3 +399,8 @@ EOF
 " specific tools for doing formatting on files
 autocmd BufEnter *.go nnoremap <buffer> <leader>f :!goimports -w %:p<CR>
 autocmd BufEnter *.ts,*.js,*.html,*.json nnoremap <buffer> <leader>f :!npx prettier -w %:p<CR>
+
+" treesitter-context
+lua << EOF
+require("treesitter-context").setup({enable = true})
+EOF
