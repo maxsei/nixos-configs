@@ -30,27 +30,27 @@ in neovim.override {
   configure = {
     packages.myplugins = with vimPlugins; {
       start = [
-        zig-vim
-        vim-terraform
-        vim-nix
-        vim-graphql
-        vim-svelte
-        vim-astro
-        ultisnips
-        vim-snippets
-        vim-fugitive
-        nvim-autopairs
-        telescope-nvim
-        # surround-nvim
-        vim-commentary
-        deoplete-nvim
-        deoplete-lsp
-        trouble-nvim
-        nvim-lspconfig
         catppuccin-nvim
-        plenary-nvim
-        nvim-treesitter
         ChatGPT-nvim
+        deoplete-lsp
+        deoplete-nvim
+        nvim-autopairs
+        nvim-lspconfig
+        nvim-treesitter
+        nvim-treesitter-context
+        plenary-nvim
+        telescope-nvim
+        trouble-nvim
+        ultisnips
+        vim-astro
+        vim-commentary
+        vim-fugitive
+        vim-graphql
+        vim-nix
+        vim-snippets
+        vim-svelte
+        vim-terraform
+        zig-vim
       ];
     };
     customRC = builtins.readFile (./vimrc);
