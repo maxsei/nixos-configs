@@ -177,6 +177,8 @@
     tree
     usbutils
     htop
+    sops
+    pwgen
   ];
 
   # Environment variables
