@@ -15,6 +15,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/shell
+    ./thinkfan.nix
   ];
 
   # Boot
@@ -74,6 +75,7 @@
       "docker"
       "networkmanager"
       "adbusers"
+      "tun0"
     ];
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [ ];
@@ -329,6 +331,7 @@
     config = ''config ${config.sops.secrets."home-server.opvpn".path}'';
     updateResolvConf = true;
   };
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
