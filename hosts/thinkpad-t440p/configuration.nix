@@ -173,7 +173,7 @@
     claude-code
     entr
     jq
-    yq
+    yq-go
     minicom
     pstree
     tree
