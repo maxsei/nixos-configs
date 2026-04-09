@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    neovim-git.url = "github:neovim/neovim?dir=contrib";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -27,7 +26,7 @@
       sops-nix,
       ...
     }@inputs:
-    flake-utils.lib.eachDefaultSystem (
+    flake-utils.lib.eachDefaultSystemPassThrough (
       system:
       let
         # Utilize flake-utils to determine the system
@@ -55,28 +54,26 @@
         };
       in
       {
-        packages = {
-          nixosConfigurations = {
-            thinkpad-t440p = nixpkgs.lib.nixosSystem {
-              inherit system pkgs;
-              modules = [
-                (
-                  { pkgs, ... }:
-                  {
-                    nixpkgs.overlays = [ rust-overlay.overlays.default ];
-                  }
-                )
-                sops-nix.nixosModules.sops
-                ./hosts/thinkpad-t440p/configuration.nix
-              ];
-            };
-            home-server = nixpkgs.lib.nixosSystem {
-              inherit system pkgs;
-              modules = [
-                sops-nix.nixosModules.sops
-                ./hosts/home-server/configuration.nix
-              ];
-            };
+        nixosConfigurations = {
+          thinkpad-t440p = nixpkgs.lib.nixosSystem {
+            inherit system pkgs;
+            modules = [
+              (
+                { pkgs, ... }:
+                {
+                  nixpkgs.overlays = [ rust-overlay.overlays.default ];
+                }
+              )
+              sops-nix.nixosModules.sops
+              ./hosts/thinkpad-t440p/configuration.nix
+            ];
+          };
+          home-server = nixpkgs.lib.nixosSystem {
+            inherit system pkgs;
+            modules = [
+              sops-nix.nixosModules.sops
+              ./hosts/home-server/configuration.nix
+            ];
           };
         };
       }

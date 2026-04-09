@@ -27,6 +27,7 @@ let
   };
 in neovim.override {
   vimAlias = true;
+  withPython3 = true;
   configure = {
     packages.myplugins = with vimPlugins; {
       start = [

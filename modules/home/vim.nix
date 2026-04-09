@@ -11,7 +11,7 @@ let
 
   # Include gopls and typescript language server
   gopls = pkgs.goPackages.gopls;
-  tsserver = pkgs.nodePackages.typescript-language-server;
+  tsserver = pkgs.typescript-language-server;
 
 in {
   # Enable Home Manager

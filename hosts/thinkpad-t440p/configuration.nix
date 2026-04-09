@@ -29,12 +29,12 @@
 
   # Backlight
   boot.kernelParams = ["acpi_backlight=video"];
-  programs.light.enable = true;
+  hardware.acpilight.enable = true;
   services.actkbd = {
     enable = true;
     bindings = [
-      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -U 10"; }
-      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/light -A 10"; }
+      { keys = [ 224 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/xbacklight -dec 10"; }
+      { keys = [ 225 ]; events = [ "key" ]; command = "/run/current-system/sw/bin/xbacklight -inc 10"; }
     ];
   };
 
@@ -56,7 +56,6 @@
   hardware.bluetooth.disabledPlugins = [ "sap" ];
 
   # Security
-  security.pam.enableEcryptfs = true;
   security.auditd.enable = true;
   security.audit.rules = [ ]; # "-a exit,always -F arch=b64 -S execve"
   security.sudo.wheelNeedsPassword = false;
@@ -86,15 +85,13 @@
     dig
     wget
     curl
-    python
-    python311
+    python3
     go
     (callPackage ../../pkgs/neovim { inherit pkgs; })
     lf
     git
     docker
     docker-compose
-    ecryptfs
     xclip
     gcc
     xclip
@@ -102,7 +99,7 @@
     pciutils
     lshw
     libreoffice
-    neofetch
+    fastfetch
     lsof
     strace
     obsidian
@@ -124,7 +121,7 @@
     ffmpeg
     gnumake
     meld
-    nixfmt-rfc-style
+    nixfmt
     patchelf
     pkg-config
     clang
@@ -132,7 +129,7 @@
     zathura
     zig
     zls
-    nodePackages.svelte-language-server
+    svelte-language-server
     (callPackage ../../pkgs/alacritty { })
     nodejs
     wireshark
@@ -157,7 +154,7 @@
     gnome-network-displays
     ungoogled-chromium
     git-lfs
-    nodePackages.typescript-language-server
+    typescript-language-server
     rust-analyzer
     (pkgs.rust-bin.stable."1.78.0".default.override {
       extensions = [ "rust-src" ];
@@ -200,7 +197,6 @@
   # Programs (https://nixos.wiki/wiki/NixOS_modules)
   programs.mtr.enable = true;
   programs.dconf.enable = true;
-  programs.adb.enable = true;
 
   # Services (https://nixos.wiki/wiki/NixOS_modules)
   # XServer configuation.
@@ -263,7 +259,7 @@
     VDPAU_DRIVER = lib.mkIf config.hardware.graphics.enable (lib.mkDefault "va_gl");
   };
   hardware.graphics.extraPackages = with pkgs; [
-    vaapiIntel
+    intel-vaapi-driver
     libvdpau-va-gl
     intel-media-driver
   ];
