@@ -118,18 +118,37 @@
         debounce = 150;
       };
       sources = [
-        { name = "path"; }
         {
           name = "nvim_lsp";
           keywordLength = 1;
+          entry_filter = ''
+            function(entry, ctx)
+              return require('cmp').lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+            end
+          '';
         }
         {
           name = "buffer";
           keywordLength = 3;
         }
+        { name = "path"; }
       ];
 
-      snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+      sorting = {
+        comparators = [
+          "require('cmp.config.compare').sort_text"
+          "require('cmp.config.compare').kind"
+          "require('cmp.config.compare').offset"
+          "require('cmp.config.compare').exact"
+          "require('cmp.config.compare').score"
+          "require('cmp.config.compare').recently_used"
+          "require('cmp.config.compare').locality"
+          "require('cmp.config.compare').length"
+          "require('cmp.config.compare').order"
+        ];
+      };
+
+      snippet.expand = "function(args) end";
       formatting = {
         fields = [
           "menu"
@@ -205,7 +224,6 @@
   plugins.cmp-nvim-lsp.enable = true;
   plugins.cmp-buffer.enable = true;
   plugins.cmp-path.enable = true;
-  plugins.cmp-treesitter.enable = true;
   plugins.dap.enable = true;
   plugins.trouble = {
     enable = true;
