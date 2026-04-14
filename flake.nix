@@ -14,6 +14,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -57,6 +61,7 @@
         nixosConfigurations = {
           thinkpad-t440p = nixpkgs.lib.nixosSystem {
             inherit system pkgs;
+            specialArgs = { inherit inputs; };
             modules = [
               (
                 { pkgs, ... }:

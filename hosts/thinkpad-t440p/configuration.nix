@@ -5,6 +5,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -87,7 +88,7 @@
     curl
     python3
     go
-    (callPackage ../../pkgs/neovim { inherit pkgs; })
+    (callPackage ../../configs/neovim { inherit system; nixvim = inputs.nixvim; })
     lf
     git
     docker
