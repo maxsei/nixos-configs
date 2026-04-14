@@ -24,7 +24,7 @@
     {
       mode = "n";
       key = "<leader>/f";
-      action.__raw = "function() require('telescope.builtin').find_files() end";
+      action.__raw = "function() require('telescope.builtin').git_files() end";
     }
   ];
 }
