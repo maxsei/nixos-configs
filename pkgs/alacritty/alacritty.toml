@@ -1,4 +1,4 @@
-import = [ "./catppuccin-mocha.yml" ]
+general.import = [ "./catppuccin-mocha.yml" ]
 
 [env]
 TERM = "alacritty"
@@ -54,17 +54,17 @@ action = "PasteSelection"
 
 [[keyboard.bindings]]
 key = "Key0"
-mods = "Control"
+mods = "Alt"
 action = "ResetFontSize"
 
 [[keyboard.bindings]]
 key = "K"
-mods = "Control"
+mods = "Alt"
 action = "IncreaseFontSize"
 
 [[keyboard.bindings]]
 key = "J"
-mods = "Control"
+mods = "Alt"
 action = "DecreaseFontSize"
 
 [[keyboard.bindings]]
@@ -84,6 +84,6 @@ action = "None"
 
 [[keyboard.bindings]]
 key = "Slash"
-mods = "Control"
+mods = "Alt"
 mode = "~Search"
 action = "ToggleViMode"
