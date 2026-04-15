@@ -6,7 +6,7 @@
 {
   plugins.lsp = {
     enable = true;
-    inlayHints = true;
+    inlayHints = false;
     keymaps = {
       diagnostic = {
         # "<leader>E" = "open_float";
