@@ -102,9 +102,11 @@
       zls.enable = true;
       rust_analyzer = {
         enable = true;
+        packageFallback = true;
         installRustc = true;
         installCargo = true;
       };
+      buf_ls.enable = true;
     };
   };
 
