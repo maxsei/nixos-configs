@@ -11,7 +11,7 @@ shopt -s interactive_comments
 shopt -s histappend
 export HISTSIZE= HISTFILESIZE= # infinite history
 export HISTTIMEFORMAT="%a %Y-%m-%d %k:%M:%S ";
-export PROMPT_COMMAND='history -a'
+PROMPT_COMMAND='history -a'
 
 # Auto cd into directory
 # shopt -s autocd

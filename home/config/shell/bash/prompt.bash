@@ -25,4 +25,4 @@ __ps1() {
   PS1="$depth$u\u$g@$h\h$g:$w\w$B$p\n$P$x "
 }
 
-PROMPT_COMMAND="__ps1"
+PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND; }__ps1"

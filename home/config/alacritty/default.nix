@@ -47,7 +47,6 @@
         search = {
           matches = { foreground = "#24273A"; background = "#A5ADCB"; };
           focused_match = { foreground = "#24273A"; background = "#A6DA95"; };
-          footer_bar = { foreground = "#24273A"; background = "#A5ADCB"; };
         };
         hints = {
           start = { foreground = "#24273A"; background = "#EED49F"; };

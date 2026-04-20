@@ -25,7 +25,6 @@
         $EDITOR "$HOME/Documents/devlog/$(date +%Y-%m-%d).md"
       '';
     };
-    initExtra = builtins.readFile ./bashrc;
-    bashrcExtra = builtins.readFile ./prompt.bash;
+    initExtra = (builtins.readFile ./bashrc) + (builtins.readFile ./prompt.bash);
   };
 }

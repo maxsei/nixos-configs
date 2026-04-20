@@ -32,9 +32,6 @@
     }@inputs:
     flake-utils.lib.eachDefaultSystemPassThrough (
       system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in
       {
         homeConfigurations = {
           mschulte = home-manager.lib.homeManagerConfiguration {
@@ -49,7 +46,7 @@
 
         nixosConfigurations = {
           thinkpad-t440p = nixpkgs.lib.nixosSystem {
-            inherit system pkgs;
+            inherit system;
             specialArgs = { inherit inputs; };
             modules = [
               (
@@ -84,7 +81,7 @@
             ];
           };
           home-server = nixpkgs.lib.nixosSystem {
-            inherit system pkgs;
+            inherit system;
             modules = [
               sops-nix.nixosModules.sops
               ./system/hosts/home-server/configuration.nix
