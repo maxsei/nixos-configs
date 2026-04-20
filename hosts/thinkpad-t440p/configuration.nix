@@ -15,8 +15,8 @@
   # directly.
   imports = [
     ./hardware-configuration.nix
-    ../../modules/shell
     ./thinkfan.nix
+    ./tailscale.nix
   ];
 
   # Boot
@@ -81,119 +81,14 @@
     packages = with pkgs; [ ];
   };
 
-  # System Packages
+  # System Packages (hardware tools and system-level utilities only)
   environment.systemPackages = with pkgs; [
-    dig
-    wget
-    curl
-    python3
-    go
-    (callPackage ../../configs/neovim { inherit system; nixvim = inputs.nixvim; })
-    lf
-    git
-    docker
-    docker-compose
-    xclip
-    gcc
-    xclip
-    gimp
     pciutils
     lshw
     libreoffice
-    fastfetch
-    lsof
-    strace
-    obsidian
-    slack
-    ripgrep
-    tealdeer
-    feh
-    dasel
-    # TODO: error: 'android-udev-rules' has been removed due to being superseded by built-in systemd uaccess rules.
-    # android-udev-rules
-    vlc
-    ngrok
-    python311Packages.qrcode # qr
-    qrcp
-    unzip
-    zip
-    (callPackage ../../pkgs/signal-desktop { })
-    scc
-    ffmpeg
-    gnumake
-    meld
-    nixfmt
-    patchelf
-    pkg-config
-    clang
-    clang-tools
-    zathura
-    zig
-    zls
-    svelte-language-server
-    (callPackage ../../pkgs/alacritty { })
-    nodejs
-    wireshark
-    nmap
-    filezilla
-    android-tools
-    scrcpy
-    gotools
-    gopls
-    file
-    golangci-lint
-    dbeaver-bin
-    pup
     man-pages
     gparted
-    yarn
-    obs-studio
-    qt5.qtwayland # XXX: need to test to see if we need this for obs
-    duckdb
-    binwalk
-    binocle
-    gnome-network-displays
-    ungoogled-chromium
-    git-lfs
-    typescript-language-server
-    rust-analyzer
-    (pkgs.rust-bin.stable."1.78.0".default.override {
-      extensions = [ "rust-src" ];
-      targets = [ "wasm32-wasip1" ];
-    })
-    aider-chat
-    wasmtime
-    (pkgs.callPackage ../../pkgs/slippi-launcher { })
-    bun
-    imagemagick
-    arp-scan
-    litecli
-    claude-code
-    entr
-    jq
-    yq-go
-    minicom
-    pstree
-    tree
-    usbutils
-    htop
-    sops
-    pwgen
   ];
-
-  # Environment variables
-  environment = {
-    variables = {
-      EDITOR = "nvim";
-    };
-    sessionVariables = rec {
-      XDG_CACHE_HOME = "\${HOME}/.cache";
-      XDG_CONFIG_HOME = "\${HOME}/.config";
-      XDG_BIN_HOME = "\${HOME}/.local/bin";
-      XDG_DATA_HOME = "\${HOME}/.local/share";
-      PATH = [ "\${XDG_BIN_HOME}" ];
-    };
-  };
 
   # Programs (https://nixos.wiki/wiki/NixOS_modules)
   programs.mtr.enable = true;
@@ -240,7 +135,7 @@
   #   allowedUDPPorts = [ 67 69 4011 ];
   # };
   # Nameservers
-  networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
+  # networking.nameservers = [ "8.8.8.8" "1.1.1.1" ];
   # networking.macvlans = {
   #   wan = {
   #     interface = "wlp3s0";
@@ -264,11 +159,6 @@
     libvdpau-va-gl
     intel-media-driver
   ];
-  # Syncthing
-  # TODO: declarative configuration https://nixos.wiki/wiki/Syncthing
-  services.syncthing.enable = true;
-  services.syncthing.user = "mschulte";
-  services.syncthing.configDir = "/home/mschulte/.config/syncthing"; # Folder for Syncthing's settings and keys
   # MTP
   services.gvfs.enable = true;
 
@@ -329,7 +219,6 @@
     updateResolvConf = true;
   };
 
-  services.tailscale.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
