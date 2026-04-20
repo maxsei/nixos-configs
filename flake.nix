@@ -77,14 +77,14 @@
                 home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.mschulte = import ./home/users/mschulte;
               }
-              ./hosts/thinkpad-t440p/configuration.nix
+              ./system/hosts/thinkpad-t440p/configuration.nix
             ];
           };
           home-server = nixpkgs.lib.nixosSystem {
             inherit system pkgs;
             modules = [
               sops-nix.nixosModules.sops
-              ./hosts/home-server/configuration.nix
+              ./system/hosts/home-server/configuration.nix
             ];
           };
         };

@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ../../../modules/shell/bash/home.nix
+    ../../config/shell/bash
   ];
 
   home.username = "mschulte";
@@ -20,7 +20,7 @@
     curl
     python3
     go
-    (pkgs.callPackage ../../../configs/neovim { system = pkgs.system; nixvim = inputs.nixvim; })
+    (pkgs.callPackage ../../config/neovim { system = pkgs.system; nixvim = inputs.nixvim; })
     lf
     git
     docker
@@ -57,7 +57,7 @@
     zig
     zls
     svelte-language-server
-    (pkgs.callPackage ../../../pkgs/alacritty { })
+    (pkgs.callPackage ../../config/alacritty { })
     nodejs
     wireshark
     nmap
