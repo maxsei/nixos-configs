@@ -26,6 +26,16 @@
     ../../config/alacritty
   ];
 
+  programs.chromium = {
+    enable = true;
+    package = pkgs.ungoogled-chromium;
+    extensions = [
+      { id = "epcnnfbjfcgphgdmggkamkmgojdagdnn"; } # ublock origin
+      { id = "khncfooichmfjbepaaaebmommgaepoid"; } # unhook
+      { id = "ocaahdebbfolfmndjeplogmgcagdmblk"; } # chromium web store
+    ];
+  };
+
   home.username = "mschulte";
   home.homeDirectory = "/home/mschulte";
   home.stateVersion = "21.05";
@@ -92,7 +102,6 @@
     binwalk
     binocle
     gnome-network-displays
-    ungoogled-chromium
     git-lfs
     typescript-language-server
     rust-analyzer
