@@ -226,13 +226,14 @@
 
   sops.age.sshKeyPaths = [ "/home/mschulte/.ssh/maxsei-homecloud" ];
   sops.defaultSopsFile = ./secrets.yaml;
-  sops.secrets."home-server.opvpn" = {
-    owner = "mschulte";
-  };
-  services.openvpn.servers.home-server  = {
-    config = ''config ${config.sops.secrets."home-server.opvpn".path}'';
-    updateResolvConf = true;
-  };
+  # sops.secrets."home-server.opvpn" = {
+  #   owner = "mschulte";
+  # };
+  # XXX: Temporarily diable.
+  # services.openvpn.servers.home-server  = {
+  #   config = ''config ${config.sops.secrets."home-server.opvpn".path}'';
+  #   updateResolvConf = true;
+  # };
 
 
   # This value determines the NixOS release from which the default
