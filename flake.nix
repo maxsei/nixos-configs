@@ -33,40 +33,43 @@
     flake-utils.lib.eachDefaultSystemPassThrough (
       system:
       let
-        # Utilize flake-utils to determine the system
-        lib = nixpkgs.lib;
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            # home-manager.overlays.default
-          ];
-          config = {
-            permittedInsecurePackages = [
-              "python-2.7.18.12"
-              # "python-2.7.18.8"
-              "electron-24.8.6"
-            ];
-            allowUnfreePredicate =
-              pkg:
-              builtins.elem (lib.getName pkg) [
-                "obsidian"
-                "slack"
-                "ngrok"
-                "claude-code"
-              ];
-          };
-        };
+        pkgs = import nixpkgs { inherit system; };
       in
       {
+        homeConfigurations = {
+          mschulte = home-manager.lib.homeManagerConfiguration {
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [ rust-overlay.overlays.default ];
+            };
+            extraSpecialArgs = { inherit inputs; };
+            modules = [ ./home/users/mschulte ];
+          };
+        };
+
         nixosConfigurations = {
           thinkpad-t440p = nixpkgs.lib.nixosSystem {
             inherit system pkgs;
             specialArgs = { inherit inputs; };
             modules = [
               (
-                { pkgs, ... }:
+                { pkgs, lib, ... }:
                 {
                   nixpkgs.overlays = [ rust-overlay.overlays.default ];
+                  nixpkgs.config = {
+                    permittedInsecurePackages = [
+                      "python-2.7.18.12"
+                      "electron-24.8.6"
+                    ];
+                    allowUnfreePredicate =
+                      pkg:
+                      builtins.elem (lib.getName pkg) [
+                        "obsidian"
+                        "slack"
+                        "ngrok"
+                        "claude-code"
+                      ];
+                  };
                 }
               )
               sops-nix.nixosModules.sops

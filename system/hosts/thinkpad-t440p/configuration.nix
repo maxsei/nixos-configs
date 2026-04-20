@@ -88,6 +88,7 @@
     libreoffice
     man-pages
     gparted
+    home-manager
   ];
 
   # Programs (https://nixos.wiki/wiki/NixOS_modules)

@@ -1,10 +1,26 @@
 {
   config,
   pkgs,
+  lib,
   inputs,
   ...
 }:
 {
+  nixpkgs.config = {
+    permittedInsecurePackages = [
+      "python-2.7.18.12"
+      "electron-24.8.6"
+    ];
+    allowUnfreePredicate =
+      pkg:
+      builtins.elem (lib.getName pkg) [
+        "obsidian"
+        "slack"
+        "ngrok"
+        "claude-code"
+      ];
+  };
+
   imports = [
     ../../config/shell/bash
     ../../config/alacritty
