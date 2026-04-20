@@ -75,7 +75,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = { inherit inputs; };
-                home-manager.users.mschulte = import ./hosts/thinkpad-t440p/home.nix;
+                home-manager.users.mschulte = import ./home/users/mschulte;
               }
               ./hosts/thinkpad-t440p/configuration.nix
             ];

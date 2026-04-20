@@ -6,7 +6,7 @@
 }:
 {
   imports = [
-    ../../modules/shell/bash/home.nix
+    ../../../modules/shell/bash/home.nix
   ];
 
   home.username = "mschulte";
@@ -20,7 +20,7 @@
     curl
     python3
     go
-    (pkgs.callPackage ../../configs/neovim { system = pkgs.system; nixvim = inputs.nixvim; })
+    (pkgs.callPackage ../../../configs/neovim { system = pkgs.system; nixvim = inputs.nixvim; })
     lf
     git
     docker
@@ -43,7 +43,7 @@
     qrcp
     unzip
     zip
-    (pkgs.callPackage ../../pkgs/signal-desktop { })
+    (pkgs.callPackage ../../../pkgs/signal-desktop { })
     scc
     ffmpeg
     gnumake
@@ -57,7 +57,7 @@
     zig
     zls
     svelte-language-server
-    (pkgs.callPackage ../../pkgs/alacritty { })
+    (pkgs.callPackage ../../../pkgs/alacritty { })
     nodejs
     wireshark
     nmap
@@ -87,7 +87,7 @@
     })
     aider-chat
     wasmtime
-    (pkgs.callPackage ../../pkgs/slippi-launcher { })
+    (pkgs.callPackage ../../../pkgs/slippi-launcher { })
     bun
     imagemagick
     arp-scan
