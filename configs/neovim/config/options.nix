@@ -12,6 +12,7 @@
     hlsearch = false;
     incsearch = true;
     smartcase = true;
+    ignorecase = true;
 
     termguicolors = true;
 
