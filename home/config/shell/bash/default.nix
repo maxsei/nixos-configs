@@ -10,7 +10,7 @@
     shellAliases = {
       l = "ls --group-directories-first -lh";
       ll = "ls --group-directories-first -alh";
-      clip = "xclip -selection clipboard";
+      clip = "wl-copy";
       pushdtmp = "pushd $(mktemp -d)";
       libsearch = "ldconfig -p | grep $@";
       funcs = "typeset -F";

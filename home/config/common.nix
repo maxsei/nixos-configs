@@ -49,7 +49,7 @@
     git
     docker
     docker-compose
-    xclip
+    wl-clipboard
     gimp
     fastfetch
     lsof
@@ -152,6 +152,18 @@
     enable-hot-corners = false;
     show-battery-percentage = true;
     toolkit-accessibility = false;
+  };
+
+  dconf.settings."org/gnome/desktop/input-sources" = {
+    xkb-options = [ "caps:escape" ];
+  };
+
+  dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
+    natural-scroll = false;
+  };
+
+  dconf.settings."org/gnome/desktop/peripherals/mouse" = {
+    natural-scroll = false;
   };
 
   programs.git = {
