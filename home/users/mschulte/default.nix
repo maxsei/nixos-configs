@@ -7,6 +7,7 @@
 {
   imports = [
     ../../config/shell/bash
+    ../../config/alacritty
   ];
 
   home.username = "mschulte";
@@ -26,7 +27,6 @@
     docker
     docker-compose
     xclip
-    gcc
     gimp
     fastfetch
     lsof
@@ -57,7 +57,6 @@
     zig
     zls
     svelte-language-server
-    (pkgs.callPackage ../../config/alacritty { })
     nodejs
     wireshark
     nmap

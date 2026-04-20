@@ -1,19 +1,110 @@
-{ pkgs }:
-pkgs.symlinkJoin {
-  name = "alacritty";
-  paths = [ pkgs.alacritty ];
-  buildInputs = [ pkgs.makeWrapper ];
-  postBuild = ''
-    mkdir -p $out/etc
-    cp ${./alacritty.toml} $out/etc/alacritty.toml
-    cp ${./catppuccin-machiato.toml} $out/etc/catppuccin-machiato.toml
+{ pkgs, ... }:
+{
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      env.TERM = "alacritty";
 
-    substituteInPlace $out/etc/alacritty.toml \
-      --replace "./catppuccin-mocha.toml" "$out/etc/catppuccin-mocha.toml"
+      window = {
+        dimensions = { columns = 120; lines = 80; };
+        opacity = 0.82;
+        startup_mode = "Maximized";
+        padding = { x = 6; y = 6; };
+      };
 
+      font = {
+        size = 13;
+        normal.family = "monospace";
+        bold.family = "monospace";
+        italic.family = "monospace";
+        bold_italic.family = "monospace";
+      };
 
-    wrapProgram $out/bin/alacritty \
-      --set WAYLAND_DISPLAY "" \
-      --add-flags "--config-file $out/etc/alacritty.toml"
-  '';
+      selection.save_to_clipboard = false;
+
+      cursor = {
+        style = "Block";
+        unfocused_hollow = true;
+      };
+
+      mouse.hide_when_typing = false;
+
+      colors = {
+        primary = {
+          background = "#24273A";
+          foreground = "#CAD3F5";
+          dim_foreground = "#CAD3F5";
+          bright_foreground = "#CAD3F5";
+        };
+        cursor = {
+          text = "#24273A";
+          cursor = "#F4DBD6";
+        };
+        vi_mode_cursor = {
+          text = "#24273A";
+          cursor = "#B7BDF8";
+        };
+        search = {
+          matches = { foreground = "#24273A"; background = "#A5ADCB"; };
+          focused_match = { foreground = "#24273A"; background = "#A6DA95"; };
+          footer_bar = { foreground = "#24273A"; background = "#A5ADCB"; };
+        };
+        hints = {
+          start = { foreground = "#24273A"; background = "#EED49F"; };
+          end = { foreground = "#24273A"; background = "#A5ADCB"; };
+        };
+        selection = {
+          text = "#24273A";
+          background = "#F4DBD6";
+        };
+        normal = {
+          black = "#494D64";
+          red = "#ED8796";
+          green = "#A6DA95";
+          yellow = "#EED49F";
+          blue = "#8AADF4";
+          magenta = "#F5BDE6";
+          cyan = "#8BD5CA";
+          white = "#B8C0E0";
+        };
+        bright = {
+          black = "#5B6078";
+          red = "#ED8796";
+          green = "#A6DA95";
+          yellow = "#EED49F";
+          blue = "#8AADF4";
+          magenta = "#F5BDE6";
+          cyan = "#8BD5CA";
+          white = "#A5ADCB";
+        };
+        dim = {
+          black = "#494D64";
+          red = "#ED8796";
+          green = "#A6DA95";
+          yellow = "#EED49F";
+          blue = "#8AADF4";
+          magenta = "#F5BDE6";
+          cyan = "#8BD5CA";
+          white = "#B8C0E0";
+        };
+        indexed_colors = [
+          { index = 16; color = "#F5A97F"; }
+          { index = 17; color = "#F4DBD6"; }
+        ];
+      };
+
+      keyboard.bindings = [
+        { key = "C"; mods = "Control|Shift"; action = "Copy"; }
+        { key = "V"; mods = "Control|Shift"; action = "Paste"; }
+        { key = "Insert"; mods = "Shift"; action = "PasteSelection"; }
+        { key = "Key0"; mods = "Alt"; action = "ResetFontSize"; }
+        { key = "K"; mods = "Alt"; action = "IncreaseFontSize"; }
+        { key = "J"; mods = "Alt"; action = "DecreaseFontSize"; }
+        { key = "Equals"; mods = "Control"; action = "None"; }
+        { key = "Plus"; mods = "Control"; action = "None"; }
+        { key = "Minus"; mods = "Control"; action = "None"; }
+        { key = "Slash"; mods = "Alt"; mode = "~Search"; action = "ToggleViMode"; }
+      ];
+    };
+  };
 }
