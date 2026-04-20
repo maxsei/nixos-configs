@@ -146,4 +146,28 @@
   services.syncthing.enable = true;
 
   programs.home-manager.enable = true;
+
+  gtk.enable = true;
+  gtk.gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+  gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+  gtk.gtk4.theme = null;
+
+  dconf.settings."org/gnome/desktop/interface" = {
+    color-scheme = "prefer-dark";
+    enable-hot-corners = false;
+    show-battery-percentage = true;
+    toolkit-accessibility = false;
+  };
+
+  programs.git = {
+    enable = true;
+    lfs.enable = true;
+    settings = {
+      user.name = "maxsei";
+      user.email = "maximilliangschulte@gmail.com";
+      url."git@github.com:".insteadOf = "https://github.com/";
+      push.autoSetupRemote = true;
+      merge.tool = "vimdiff";
+    };
+  };
 }
