@@ -33,16 +33,21 @@
     flake-utils.lib.eachDefaultSystemPassThrough (
       system:
       {
-        homeConfigurations = {
-          mschulte = home-manager.lib.homeManagerConfiguration {
-            pkgs = import nixpkgs {
-              inherit system;
-              overlays = [ rust-overlay.overlays.default ];
+        homeConfigurations =
+          let
+            mkHome = user: home-manager.lib.homeManagerConfiguration {
+              pkgs = import nixpkgs {
+                inherit system;
+                overlays = [ rust-overlay.overlays.default ];
+              };
+              extraSpecialArgs = { inherit inputs; };
+              modules = [ ./home/users/${user} ];
             };
-            extraSpecialArgs = { inherit inputs; };
-            modules = [ ./home/users/mschulte ];
+          in
+          {
+            mschulte = mkHome "mschulte";
+            mschulte71 = mkHome "mschulte71";
           };
-        };
 
         nixosConfigurations = {
           thinkpad-t440p = nixpkgs.lib.nixosSystem {
@@ -76,6 +81,7 @@
                 home-manager.useUserPackages = true;
                 home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.mschulte = import ./home/users/mschulte;
+                home-manager.users.mschulte71 = import ./home/users/mschulte71;
               }
               ./system/hosts/thinkpad-t440p/configuration.nix
             ];

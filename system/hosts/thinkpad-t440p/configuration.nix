@@ -80,6 +80,20 @@
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [ ];
   };
+  users.users.mschulte71 = {
+    isNormalUser = true;
+    home = "/home/mschulte71";
+    extraGroups = [
+      "wheel"
+      "sudo"
+      "docker"
+      "networkmanager"
+      "adbusers"
+      "tun0"
+    ];
+    hashedPassword = "$y$j9T$ZlYJs.dBSAxG5KsNWgl4j.$wolza.NlmBhOE2QZZJEa7q21jtG42RJ99VW6HcOYwn8";
+    packages = with pkgs; [ ];
+  };
 
   # System Packages (hardware tools and system-level utilities only)
   environment.systemPackages = with pkgs; [
