@@ -3,13 +3,13 @@ keys:
   - &maxsei-homecloud-server age1wq5vtywgyjx0r52u84pu7vlqjuu07d8j2r6yh6asvxkj94hzhccq6n4cgg
 
 creation_rules:
-  - path_regex: ^hosts/home-server/secrets\.yaml$
+  - path_regex: ^system/hosts/home-server/secrets\.yaml$
     key_groups:
       - age:
           - *maxsei-homecloud-admin
           - *maxsei-homecloud-server
 
-  - path_regex: ^hosts/thinkpad-t440p/secrets\.yaml$
+  - path_regex: ^system/hosts/thinkpad-t440p/secrets\.yaml$
     key_groups:
       - age:
           - *maxsei-homecloud-admin

@@ -16,7 +16,8 @@
   imports = [
     ./hardware-configuration.nix
     ./thinkfan.nix
-    ./tailscale.nix
+    # ./tailscale.nix
+    ./openconnect.nix
   ];
 
   # Boot
@@ -157,6 +158,7 @@
   #     mode = "passthru";
   #   };
   # };
+
   # Pipewire
   services.pipewire.enable = true;
   services.pipewire.alsa.enable = true;
@@ -223,9 +225,6 @@
   # Since Nixos 24.05 we will allow nix-ld
   programs.nix-ld.enable = true;
 
-
-  sops.age.sshKeyPaths = [ "/home/mschulte/.ssh/maxsei-homecloud" ];
-  sops.defaultSopsFile = ./secrets.yaml;
   # sops.secrets."home-server.opvpn" = {
   #   owner = "mschulte";
   # };

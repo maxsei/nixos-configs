@@ -12,3 +12,6 @@ system/
   config/     # Reusable NixOS configurations shared across hosts
   hosts/      # Per-host NixOS entrypoints
 ```
+
+## TODO
+* Manage multiple vpn connections on the same system
