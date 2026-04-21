@@ -9,5 +9,8 @@
     ./lsp.nix
   ];
 
-  plugins.web-devicons.enable = true;
+  plugins = {
+    gitsigns.enable = true;
+    web-devicons.enable = true;
+  };
 }
