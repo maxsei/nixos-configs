@@ -26,6 +26,15 @@
     ./alacritty
   ];
 
+  programs.tmux = {
+    enable = true;
+    shell = "${pkgs.bash}/bin/bash";
+    terminal = "tmux-256color";
+    extraConfig = ''
+      set -as terminal-features ",*:RGB"
+    '';
+  };
+
   programs.chromium = {
     enable = true;
     package = pkgs.ungoogled-chromium;
