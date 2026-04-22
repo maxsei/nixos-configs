@@ -16,8 +16,8 @@
   imports = [
     ./hardware-configuration.nix
     ./thinkfan.nix
-    # ./tailscale.nix
-    ./openconnect.nix
+    ./tailscale.nix
+    # ./openconnect.nix
   ];
 
   # Boot
