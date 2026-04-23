@@ -17,7 +17,7 @@
     ./hardware-configuration.nix
     ./thinkfan.nix
     ./tailscale.nix
-    # ./openconnect.nix
+    ./openconnect.nix
   ];
 
   # Boot
