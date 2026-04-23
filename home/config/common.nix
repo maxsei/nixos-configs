@@ -30,8 +30,12 @@
     enable = true;
     shell = "${pkgs.bash}/bin/bash";
     terminal = "tmux-256color";
+    mouse = true;
     extraConfig = ''
       set -as terminal-features ",*:RGB"
+
+      set -g base-index 1
+      setw -g pane-base-index 1
     '';
   };
 
