@@ -1,6 +1,9 @@
 { ... }:
 {
-  imports = [ ../../config/common.nix ];
+  imports = [
+    ../../config/common.nix
+    ./bbt-env.nix
+  ];
 
   home.username = "mschulte71";
   home.homeDirectory = "/home/mschulte71";
