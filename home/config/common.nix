@@ -22,8 +22,11 @@
   };
 
   imports = [
-    ./shell/bash
+    ../modules/sccache
+  ]
+  ++ [
     ./alacritty
+    ./shell/bash
   ];
 
   programs.tmux = {
@@ -57,7 +60,10 @@
     curl
     python3
     go
-    (pkgs.callPackage ./neovim { system = pkgs.system; nixvim = inputs.nixvim; })
+    (pkgs.callPackage ./neovim {
+      system = pkgs.system;
+      nixvim = inputs.nixvim;
+    })
     lf
     git
     docker
