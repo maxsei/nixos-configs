@@ -26,6 +26,7 @@
   ]
   ++ [
     ./alacritty
+    ./rust-toolchain
     ./shell/bash
   ];
 
@@ -120,11 +121,6 @@
     gnome-network-displays
     git-lfs
     typescript-language-server
-    rust-analyzer
-    (pkgs.rust-bin.stable."1.78.0".default.override {
-      extensions = [ "rust-src" ];
-      targets = [ "wasm32-wasip1" ];
-    })
     aider-chat
     wasmtime
     (pkgs.callPackage ../../pkgs/slippi-launcher { })
