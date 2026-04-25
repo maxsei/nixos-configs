@@ -4,8 +4,10 @@ let
     name = "bbt-env";
     targetPkgs =
       p: with p; [
+        openssl
         openssl.dev
         glib.dev
+        libxml2
         libxml2.dev
         libclang.lib
         xmlsec
