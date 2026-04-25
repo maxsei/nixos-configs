@@ -139,6 +139,8 @@
     htop
     sops
     pwgen
+    gitleaks
+    pre-commit
   ];
 
   home.sessionVariables = {
