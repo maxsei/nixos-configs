@@ -141,6 +141,7 @@
     pwgen
     gitleaks
     pre-commit
+    uv
   ];
 
   home.sessionVariables = {
