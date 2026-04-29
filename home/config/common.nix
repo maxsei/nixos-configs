@@ -165,24 +165,33 @@
   gtk.gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
   gtk.gtk4.theme = null;
 
-  dconf.settings."org/gnome/desktop/interface" = {
-    color-scheme = "prefer-dark";
-    enable-hot-corners = false;
-    show-battery-percentage = true;
-    toolkit-accessibility = false;
+  dconf = lib.mkIf pkgs.stdenv.isLinux {
+    settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+        enable-hot-corners = false;
+        show-battery-percentage = true;
+        toolkit-accessibility = false;
+      };
+
+      "org/gnome/desktop/input-sources" = {
+        xkb-options = [ "caps:escape" ];
+      };
+
+      "org/gnome/desktop/peripherals/touchpad" = {
+        natural-scroll = false;
+      };
+
+      "org/gnome/desktop/peripherals/mouse" = {
+        natural-scroll = false;
+      };
+    };
   };
 
-  dconf.settings."org/gnome/desktop/input-sources" = {
-    xkb-options = [ "caps:escape" ];
-  };
-
-  dconf.settings."org/gnome/desktop/peripherals/touchpad" = {
-    natural-scroll = false;
-  };
-
-  dconf.settings."org/gnome/desktop/peripherals/mouse" = {
-    natural-scroll = false;
-  };
+  home.file.".cargo/config.toml".text = ''
+    [env]
+    DUCKDB_DOWNLOAD_LIB = "1"
+  '';
 
   programs.git = {
     enable = true;
