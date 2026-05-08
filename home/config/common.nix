@@ -55,94 +55,100 @@
 
   home.stateVersion = "21.05";
 
-  home.packages = with pkgs; [
-    dig
-    wget
-    curl
-    python3
-    go
-    (pkgs.callPackage ./neovim {
-      system = pkgs.system;
-      nixvim = inputs.nixvim;
-    })
-    lf
-    git
-    docker
-    docker-compose
-    wl-clipboard
-    gimp
-    fastfetch
-    lsof
-    strace
-    obsidian
-    slack
-    ripgrep
-    tealdeer
-    feh
-    dasel
-    vlc
-    ngrok
-    python311Packages.qrcode
-    qrcp
-    unzip
-    zip
-    (pkgs.callPackage ../../pkgs/signal-desktop { })
-    scc
-    ffmpeg
-    gnumake
-    meld
-    nixfmt
-    patchelf
-    pkg-config
-    clang
-    clang-tools
-    zathura
-    zig
-    zls
-    svelte-language-server
-    nodejs
-    wireshark
-    nmap
-    filezilla
-    android-tools
-    scrcpy
-    gotools
-    gopls
-    file
-    golangci-lint
-    dbeaver-bin
-    pup
-    yarn
-    obs-studio
-    qt5.qtwayland
-    duckdb
-    binwalk
-    binocle
-    gnome-network-displays
-    git-lfs
-    typescript-language-server
-    aider-chat
-    wasmtime
-    (pkgs.callPackage ../../pkgs/slippi-launcher { })
-    bun
-    imagemagick
-    arp-scan
-    litecli
-    claude-code
-    entr
-    jq
-    yq-go
-    minicom
-    pstree
-    tree
-    usbutils
-    htop
-    sops
-    pwgen
-    gitleaks
-    pre-commit
-    uv
-  ];
+  home.packages =
+    with pkgs;
+    (
+      [
+        (pkgs.callPackage ./neovim {
+          system = pkgs.system;
+          nixvim = inputs.nixvim;
+        })
+        (pkgs.callPackage ../../pkgs/signal-desktop { })
+        (pkgs.callPackage ../../pkgs/slippi-launcher { })
+      ]
+      ++ [
+        age
+        android-tools
+        arp-scan
+        binocle
+        binwalk
+        bun
+        clang
+        clang-tools
+        claude-code
+        curl
+        dasel
+        dbeaver-bin
+        dig
+        docker
+        docker-compose
+        duckdb
+        entr
+        fastfetch
+        feh
+        ffmpeg
+        file
+        filezilla
+        gimp
+        git
+        gitleaks
+        git-lfs
+        gnome-network-displays
+        gnumake
+        go
+        golangci-lint
+        gopls
+        gotools
+        htop
+        imagemagick
+        jq
+        lf
+        litecli
+        lsof
+        meld
+        minicom
+        ngrok
+        nixfmt
+        nmap
+        nodejs
+        obsidian
+        obs-studio
+        patchelf
+        pkg-config
+        pre-commit
+        pstree
+        pup
+        pwgen
+        python3
+        python311Packages.qrcode
+        qrcp
+        qt5.qtwayland
+        ripgrep
+        scc
+        scrcpy
+        slack
+        sops
+        strace
+        svelte-language-server
+        tealdeer
+        tree
+        typescript-language-server
+        unzip
+        usbutils
+        uv
+        vlc
+        wasmtime
+        wget
+        wireshark
+        wl-clipboard
+        yarn
+        yq-go
+        zathura
+        zig
+        zip
+        zls
+      ]
+    );
 
   home.sessionVariables = {
     EDITOR = "nvim";
