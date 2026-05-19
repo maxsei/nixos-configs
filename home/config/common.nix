@@ -120,6 +120,7 @@
         pup
         pwgen
         python3
+        (lib.meta.lowPrio python314)
         python311Packages.qrcode
         qrcp
         qt5.qtwayland
