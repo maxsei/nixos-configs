@@ -242,6 +242,7 @@
         enable = true;
         package = pkgs.prettier;
         disableTsServerFormatter = true;
+        settings.disabled_filetypes = [ "markdown" ];
       };
       sqlformat.enable = true;
       stylua.enable = true;
