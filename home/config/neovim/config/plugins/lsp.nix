@@ -91,7 +91,7 @@
         filetypes = [ "yaml" ];
       };
       terraformls = {
-        enable = true;
+        enable = false;
         filetypes = [
           "terraform"
           "tf"
