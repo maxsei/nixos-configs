@@ -6,21 +6,6 @@
   ...
 }:
 {
-  nixpkgs.config = {
-    permittedInsecurePackages = [
-      "python-2.7.18.12"
-      "electron-24.8.6"
-    ];
-    allowUnfreePredicate =
-      pkg:
-      builtins.elem (lib.getName pkg) [
-        "obsidian"
-        "slack"
-        "ngrok"
-        "claude-code"
-      ];
-  };
-
   imports = [
     ../modules/sccache
   ]
@@ -60,7 +45,7 @@
     (
       [
         (pkgs.callPackage ./neovim {
-          system = pkgs.system;
+          system = pkgs.stdenv.hostPlatform.system;
           nixvim = inputs.nixvim;
         })
         (pkgs.callPackage ../../pkgs/signal-desktop { })
@@ -203,6 +188,7 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
+    signing.format = null;
     settings = {
       url."git@github.com:".insteadOf = "https://github.com/";
       push.autoSetupRemote = true;

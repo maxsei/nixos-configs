@@ -48,6 +48,8 @@
 , libpulseaudio
 , xdg-utils
 , wayland
+, libxcb
+, libxshmfence
 }:
 
 stdenv.mkDerivation rec {
@@ -103,8 +105,8 @@ stdenv.mkDerivation rec {
     nss
     pango
     systemd
-    xorg.libxcb
-    xorg.libxshmfence
+    libxcb
+    libxshmfence
   ];
 
   runtimeDependencies = [
