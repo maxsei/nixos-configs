@@ -107,6 +107,7 @@
         installCargo = true;
       };
       buf_ls.enable = true;
+      gopls.enable = true;
     };
   };
 
