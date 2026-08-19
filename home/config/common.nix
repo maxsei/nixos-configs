@@ -78,6 +78,7 @@
         git
         gitleaks
         git-lfs
+        glow
         gnome-network-displays
         gnumake
         go
