@@ -111,6 +111,7 @@
         qrcp
         qt5.qtwayland
         ripgrep
+        trufflehog
         scc
         scrcpy
         slack
