@@ -30,7 +30,18 @@
       sops-nix,
       ...
     }@inputs:
-    flake-utils.lib.eachDefaultSystemPassThrough (system: {
+    flake-utils.lib.eachDefaultSystemPassThrough (system:
+      let
+        allowUnfreePredicate =
+          pkg:
+          builtins.elem (nixpkgs.lib.getName pkg) [
+            "obsidian"
+            "slack"
+            "ngrok"
+            "claude-code"
+          ];
+      in
+      {
       homeConfigurations =
         let
           mkHome =
@@ -39,6 +50,7 @@
               pkgs = import nixpkgs {
                 inherit system;
                 overlays = [ fenix.overlays.default ];
+                config = { inherit allowUnfreePredicate; };
               };
               extraSpecialArgs = { inherit inputs; };
               modules = [ ./home/users/${user} ];
@@ -63,14 +75,7 @@
                     "python-2.7.18.12"
                     "electron-24.8.6"
                   ];
-                  allowUnfreePredicate =
-                    pkg:
-                    builtins.elem (lib.getName pkg) [
-                      "obsidian"
-                      "slack"
-                      "ngrok"
-                      "claude-code"
-                    ];
+                  inherit allowUnfreePredicate;
                 };
               }
             )
