@@ -152,6 +152,17 @@
 
   services.syncthing.enable = true;
 
+  programs.keepassxc = {
+    enable = true;
+    settings = {
+      GUI.MinimizeOnClose = true;
+      GUI.MinimizeToTray = true;
+      Security.LockDatabaseIdle = true;
+      Security.LockDatabaseIdleSeconds = 240;
+      FdoSecrets.Enabled = true;
+    };
+  };
+
   programs.home-manager.enable = true;
 
   gtk.enable = true;
