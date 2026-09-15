@@ -13,3 +13,8 @@ creation_rules:
     key_groups:
       - age:
           - *maxsei-homecloud-admin
+
+  - path_regex: ^home/users/mschulte/secrets\.yaml$
+    key_groups:
+      - age:
+          - *maxsei-homecloud-admin

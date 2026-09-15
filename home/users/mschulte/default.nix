@@ -1,6 +1,10 @@
-{ ... }:
+{ inputs, ... }:
 {
-  imports = [ ../../config/common.nix ];
+  imports = [
+    ../../config/common.nix
+    ../../modules/hermes-agent
+    ./sops.nix
+  ];
 
   home.username = "mschulte";
   home.homeDirectory = "/home/mschulte";

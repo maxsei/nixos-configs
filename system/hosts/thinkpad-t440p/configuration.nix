@@ -80,6 +80,7 @@
     ];
     hashedPassword = "$6$RYD2XRgkrFn$0R7E.4hDCL6kCFtiijjV1A3BZC4o8Nx7s/uvit5jz0nDu015KEhJuAWH5VKVc82dFJDycf5DjdecBcthaPns3/";
     packages = with pkgs; [ ];
+    linger = true;
   };
   users.users.mschulte71 = {
     isNormalUser = true;

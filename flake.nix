@@ -18,6 +18,7 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hermes-agent.url = "github:NousResearch/hermes-agent";
   };
 
   outputs =
@@ -28,6 +29,7 @@
       fenix,
       flake-utils,
       sops-nix,
+      hermes-agent,
       ...
     }@inputs:
     flake-utils.lib.eachDefaultSystemPassThrough (system:
@@ -80,6 +82,7 @@
               }
             )
             sops-nix.nixosModules.sops
+            hermes-agent.nixosModules.default
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
