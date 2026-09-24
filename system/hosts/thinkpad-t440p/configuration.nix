@@ -17,7 +17,7 @@
     ./hardware-configuration.nix
     ./thinkfan.nix
     ./baikal.nix
-    # ./tailscale.nix
+    ./tailscale.nix
     # ./openconnect.nix
   ];
 
