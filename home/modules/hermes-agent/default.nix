@@ -16,7 +16,10 @@
     gateway.enable = true;
     backend.mode = "dashboard";
     backend.port = 9119;
-    settings.model.default = "anthropic/claude-sonnet-4-5";
+    settings.model = {
+      default = "deepseek/deepseek-v4-pro";
+      provider = "nous";
+    };
     environmentFiles = [ config.sops.secrets."hermes-env".path ];
   };
 
