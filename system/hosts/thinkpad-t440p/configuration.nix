@@ -26,6 +26,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems = [ "ntfs" ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   # Enable libvirtd
   boot.kernelModules = [ "kvm-intel" ];
   virtualisation.libvirtd.enable = true;
@@ -220,6 +222,7 @@
     "nix-command"
     "flakes"
   ];
+  nix.settings.trusted-users = [ "root" "@wheel" ];
 
   # Nixos 22.05
   system.autoUpgrade.channel = "https://channels.nixos.org/nixos-22.05";
