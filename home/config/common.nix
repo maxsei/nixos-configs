@@ -103,6 +103,7 @@
         openssl
         patchelf
         pkg-config
+        poppler-utils
         pre-commit
         pstree
         pup
