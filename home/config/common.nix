@@ -100,6 +100,7 @@
         nodejs
         obsidian
         obs-studio
+        openssl
         patchelf
         pkg-config
         pre-commit
