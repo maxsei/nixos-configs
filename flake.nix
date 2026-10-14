@@ -2,9 +2,10 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    home-manager.url = "github:nix-community/home-manager";
+    home-manager.url = "github:nix-community/home-manager/release-26.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     fenix = {
       url = "github:nix-community/fenix";
@@ -14,10 +15,7 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     hermes-agent.url = "github:NousResearch/hermes-agent";
   };
 
@@ -25,6 +23,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-unstable,
       home-manager,
       fenix,
       flake-utils,
@@ -42,6 +41,10 @@
             "ngrok"
             "claude-code"
           ];
+        pkgs-unstable = import nixpkgs-unstable {
+          inherit system;
+          config = { inherit allowUnfreePredicate; };
+        };
       in
       {
       homeConfigurations =
@@ -54,7 +57,7 @@
                 overlays = [ fenix.overlays.default ];
                 config = { inherit allowUnfreePredicate; };
               };
-              extraSpecialArgs = { inherit inputs; };
+              extraSpecialArgs = { inherit inputs pkgs-unstable; };
               modules = [ ./home/users/${user} ];
             };
         in
@@ -66,7 +69,7 @@
       nixosConfigurations = {
         thinkpad-t440p = nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs pkgs-unstable; };
           modules = [
             (
               { pkgs, lib, ... }:
@@ -87,7 +90,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs pkgs-unstable; };
               home-manager.users.mschulte = import ./home/users/mschulte;
               home-manager.users.mschulte71 = import ./home/users/mschulte71;
             }

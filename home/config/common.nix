@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  pkgs-unstable,
   lib,
   inputs,
   ...
@@ -30,7 +31,7 @@
 
   programs.chromium = {
     enable = true;
-    package = pkgs.ungoogled-chromium;
+    package = pkgs-unstable.ungoogled-chromium;
     extensions = [
       { id = "epcnnfbjfcgphgdmggkamkmgojdagdnn"; } # ublock origin
       { id = "khncfooichmfjbepaaaebmommgaepoid"; } # unhook
@@ -48,7 +49,7 @@
           system = pkgs.stdenv.hostPlatform.system;
           nixvim = inputs.nixvim;
         })
-        (pkgs.callPackage ../../pkgs/signal-desktop { })
+        pkgs-unstable.signal-desktop
         (pkgs.callPackage ../../pkgs/slippi-launcher { })
       ]
       ++ [
