@@ -13,5 +13,6 @@
   plugins = {
     gitsigns.enable = true;
     web-devicons.enable = true;
+    markdown-preview.enable = true;
   };
 }
