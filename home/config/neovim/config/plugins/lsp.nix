@@ -83,7 +83,7 @@
       lua_ls.enable = true;
       cssls.enable = true;
       html.enable = true;
-      # pyright.enable = true;
+      pyright.enable = true;
       nil_ls.enable = true;
       bashls.enable = true;
       yamlls = {
