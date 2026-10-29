@@ -122,6 +122,7 @@
         strace
         svelte-language-server
         tealdeer
+        teamtype
         tree
         typescript-language-server
         unzip
