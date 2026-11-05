@@ -31,7 +31,8 @@
       hermes-agent,
       ...
     }@inputs:
-    flake-utils.lib.eachDefaultSystemPassThrough (system:
+    flake-utils.lib.eachDefaultSystemPassThrough (
+      system:
       let
         allowUnfreePredicate =
           pkg:
@@ -47,63 +48,67 @@
         };
       in
       {
-      homeConfigurations =
-        let
-          mkHome =
-            user:
-            home-manager.lib.homeManagerConfiguration {
-              pkgs = import nixpkgs {
-                inherit system;
-                overlays = [ fenix.overlays.default ];
-                config = { inherit allowUnfreePredicate; };
-              };
-              extraSpecialArgs = { inherit inputs pkgs-unstable; };
-              modules = [ ./home/users/${user} ];
-            };
-        in
-        {
-          mschulte = mkHome "mschulte";
-          mschulte71 = mkHome "mschulte71";
-        };
-
-      nixosConfigurations = {
-        thinkpad-t440p = nixpkgs.lib.nixosSystem {
-          inherit system;
-          specialArgs = { inherit inputs pkgs-unstable; };
-          modules = [
-            (
-              { pkgs, lib, ... }:
-              {
-                nixpkgs.overlays = [ fenix.overlays.default ];
-                nixpkgs.config = {
-                  permittedInsecurePackages = [
-                    "python-2.7.18.12"
-                    "electron-24.8.6"
-                  ];
-                  inherit allowUnfreePredicate;
+        homeConfigurations =
+          let
+            mkHome =
+              user:
+              home-manager.lib.homeManagerConfiguration {
+                pkgs = import nixpkgs {
+                  inherit system;
+                  overlays = [ fenix.overlays.default ];
+                  config = { inherit allowUnfreePredicate; };
                 };
+                extraSpecialArgs = { inherit inputs pkgs-unstable; };
+                modules = [ ./home/users/${user} ];
+              };
+          in
+          {
+            mschulte = mkHome "mschulte";
+            mschulte71 = mkHome "mschulte71";
+          };
+
+        nixosConfigurations = {
+          thinkpad-t440p = nixpkgs.lib.nixosSystem {
+            inherit system;
+            specialArgs = { inherit inputs pkgs-unstable; };
+            modules = [
+              {
+                environment.etc."current-flake".source = inputs.self;
               }
-            )
-            sops-nix.nixosModules.sops
-            hermes-agent.nixosModules.default
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = { inherit inputs pkgs-unstable; };
-              home-manager.users.mschulte = import ./home/users/mschulte;
-              home-manager.users.mschulte71 = import ./home/users/mschulte71;
-            }
-            ./system/hosts/thinkpad-t440p/configuration.nix
-          ];
+              (
+                { pkgs, lib, ... }:
+                {
+                  nixpkgs.overlays = [ fenix.overlays.default ];
+                  nixpkgs.config = {
+                    permittedInsecurePackages = [
+                      "python-2.7.18.12"
+                      "electron-24.8.6"
+                    ];
+                    inherit allowUnfreePredicate;
+                  };
+                }
+              )
+              sops-nix.nixosModules.sops
+              hermes-agent.nixosModules.default
+              home-manager.nixosModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = { inherit inputs pkgs-unstable; };
+                home-manager.users.mschulte = import ./home/users/mschulte;
+                home-manager.users.mschulte71 = import ./home/users/mschulte71;
+              }
+              ./system/hosts/thinkpad-t440p/configuration.nix
+            ];
+          };
+          home-server = nixpkgs.lib.nixosSystem {
+            inherit system;
+            modules = [
+              sops-nix.nixosModules.sops
+              ./system/hosts/home-server/configuration.nix
+            ];
+          };
         };
-        home-server = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            sops-nix.nixosModules.sops
-            ./system/hosts/home-server/configuration.nix
-          ];
-        };
-      };
-    });
+      }
+    );
 }
