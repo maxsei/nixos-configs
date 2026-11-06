@@ -17,6 +17,7 @@
     };
     nixvim.url = "github:nix-community/nixvim/nixos-26.05";
     hermes-agent.url = "github:NousResearch/hermes-agent";
+    hermes-agent.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs =
