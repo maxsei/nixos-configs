@@ -5,6 +5,11 @@
   ...
 }:
 {
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
   programs.bash = {
     enable = true;
     shellAliases = {
