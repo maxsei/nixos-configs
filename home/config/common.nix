@@ -82,7 +82,7 @@
         glow
         gnome-network-displays
         gnumake
-        go
+        go_1_27
         golangci-lint
         gopls
         gotools
@@ -90,6 +90,7 @@
         imagemagick
         jq
         lf
+        (lib.meta.lowPrio python314)
         litecli
         lsof
         meld
@@ -109,12 +110,10 @@
         pup
         pwgen
         python3
-        (lib.meta.lowPrio python314)
         python311Packages.qrcode
         qrcp
         qt5.qtwayland
         ripgrep
-        trufflehog
         scc
         scrcpy
         slack
@@ -124,6 +123,7 @@
         tealdeer
         teamtype
         tree
+        trufflehog
         typescript-language-server
         unzip
         usbutils
