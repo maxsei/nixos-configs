@@ -111,5 +111,57 @@
           };
         };
       }
-    );
+    )
+    // {
+      nixosConfigurations.annon = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          (
+            { lib, ... }:
+            {
+              boot.supportedFilesystems.zfs = lib.mkForce false;
+            }
+          )
+          sops-nix.nixosModules.sops
+          ./system/hosts/annon/configuration.nix
+        ];
+      };
+
+      nixosConfigurations.raspberry-pi-4-installer = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          (
+            { pkgs, lib, ... }:
+            {
+              system.stateVersion = "26.05";
+
+              boot.supportedFilesystems.zfs = lib.mkForce false;
+
+              documentation.enable = false;
+              documentation.nixos.enable = false;
+
+              environment.systemPackages = with pkgs; [
+                lf
+                neovim
+                ssh-to-age
+              ];
+
+              networking.firewall.enable = false;
+
+              users.mutableUsers = false;
+              users.users.root.password = "root";
+              services.openssh.enable = true;
+              services.openssh.settings.PermitRootLogin = "yes";
+              services.openssh.settings.PasswordAuthentication = true;
+              services.openssh.settings.KbdInteractiveAuthentication = true;
+            }
+          )
+        ];
+      };
+
+      packages.aarch64-linux.raspberry-pi-4-installer-sd-image =
+        self.nixosConfigurations.raspberry-pi-4-installer.config.system.build.sdImage;
+    };
 }
