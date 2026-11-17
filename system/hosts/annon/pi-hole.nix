@@ -24,6 +24,7 @@
         ];
       };
       misc.privacylevel = 3; # anonymous mode
+      webserver.paths.prefix = "/pihole";
       dhcp = {
         active = true;
         start = "192.168.1.64";

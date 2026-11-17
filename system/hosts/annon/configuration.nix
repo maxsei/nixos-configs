@@ -4,6 +4,8 @@
     ./headscale.nix
     ./pi-hole.nix
     ./tailscale.nix
+    ./logging.nix
+    ./dashboard.nix
   ];
 
   system.stateVersion = "26.05";
