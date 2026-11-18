@@ -32,7 +32,8 @@
       hermes-agent,
       ...
     }@inputs:
-    flake-utils.lib.eachDefaultSystemPassThrough (
+    nixpkgs.lib.recursiveUpdate
+    (flake-utils.lib.eachDefaultSystemPassThrough (
       system:
       let
         allowUnfreePredicate =
@@ -111,8 +112,8 @@
           };
         };
       }
-    )
-    // {
+    ))
+    {
       nixosConfigurations.annon = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
         modules = [
